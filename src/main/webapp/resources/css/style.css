@@ -1,0 +1,27 @@
+.menu-list{
+    color: #660020;
+    background-color: #f2f2f2;
+    margin-left: 20px;
+    margin-right: 30px;
+    padding: 10px;
+    size: 20px;
+    font-weight: bold;
+}
+.buttonAdd{
+    background-color: #660020;
+    width: 300px;
+    color:white;
+    padding: 10px;
+    margin: 20px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.pontaj{
+    width: 2px;
+}
+
+.navbarItem{
+    color:#660020;
+    margin-right: 20px;
+    size: 1px;
+}
