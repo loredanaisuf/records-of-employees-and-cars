@@ -98,6 +98,9 @@
           <groupId>com.heroku.sdk</groupId>
           <artifactId>heroku-maven-plugin</artifactId>
           <version>3.0.2</version>
+          <configuration>
+            <appName>records-of-employees-and-cars</appName>
+          </configuration>
         </plugin>
       </plugins>
     </pluginManagement>
