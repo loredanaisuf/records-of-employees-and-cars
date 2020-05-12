@@ -68,7 +68,7 @@
 
 </div>
 <jsp:include page="../includes/scripts_body.jsp"/>
-<script type="text/javascript" src="resources/js/register_try.js"></script>
+
 </body>
 </html>
 
