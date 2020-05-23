@@ -24,6 +24,10 @@
                         <button type="button" style="display: <c:out value="${requestScope.displayLogin}"/>; background-color: #660020; width: 300px; color:white; padding: 10px; margin: 20px;" >Logare</button>
                     </a>
                     <div class="form-group">
+                        <label for="firma" style="margin-top: 30px;" >Firma</label>
+                        <input type="text"class="form-control" id="firma"  name="firma" aria-describedby="emailHelp" value="${requestScope.UserToEdit.nume}">
+                    </div>
+                    <div class="form-group">
                         <label for="utilizator" style="margin-top: 30px;" >Nume</label>
                         <input type="text"class="form-control" id="utilizator"  name="numeUtilizator" aria-describedby="emailHelp" value="${requestScope.UserToEdit.nume}">
                     </div>

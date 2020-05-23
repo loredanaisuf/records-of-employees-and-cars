@@ -577,7 +577,7 @@ TODO: more distinction between this file and common.css
 }
 
 .fc-unthemed td.fc-today {
-  background: #f2f2f2;
+  background: #FEC3AC;
 }
 
 .fc-unthemed .fc-disabled-day {
@@ -697,7 +697,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 }
 
 .fc-button:hover {
-  color: #212529;
+  color: #660020;
   text-decoration: none;
 }
 
@@ -714,7 +714,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 /* "primary" coloring */
 .fc-button-primary {
   color: #fff;
-  background-color: #2C3E50;
+  background-color: #660020;
   border-color: #2C3E50;
 }
 
@@ -732,7 +732,7 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
 
 .fc-button-primary:disabled {
   color: #fff;
-  background-color: #2C3E50;
+  background-color: #660020;
   border-color: #2C3E50;
 }
 

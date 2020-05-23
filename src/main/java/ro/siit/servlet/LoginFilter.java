@@ -16,10 +16,13 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest httpServletRequest = (HttpServletRequest) servletRequest;
         System.out.println("from filter");
-        Object authenticated = httpServletRequest.getSession().getAttribute("authenticatedUser");
-        if(authenticated != null) {
+        Object authenticatedUser = httpServletRequest.getSession().getAttribute("authenticatedUser");
+        Object authenticatedAdmin = httpServletRequest.getSession().getAttribute("authenticatedAdmin");
+        if(authenticatedUser != null || authenticatedAdmin != null)  {
+            System.out.println("before filter");
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            System.out.println("before redirect to login");
             ((HttpServletResponse) servletResponse).sendRedirect(servletRequest.getServletContext().getContextPath() + "/login");
         }
     }

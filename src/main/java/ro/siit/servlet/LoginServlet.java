@@ -1,7 +1,9 @@
 package ro.siit.servlet;
 
 
+import ro.siit.model.Administrator;
 import ro.siit.model.Utilizator;
+import ro.siit.service.ServiceAdministrator;
 import ro.siit.service.ServiceUtilizator;
 
 import javax.servlet.ServletException;
@@ -11,14 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = {"/login"})
+@WebServlet(urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
     private ServiceUtilizator userService;
+    private ServiceAdministrator serviceAdministrator;
     @Override
     public void init() throws ServletException {
         super.init();
         userService = new ServiceUtilizator();
+        serviceAdministrator = new ServiceAdministrator();
     }
 
     @Override
@@ -31,17 +35,24 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String username = req.getParameter("numeUtilizator");
         String pwd = req.getParameter("parolaUtilizator");
-        System.out.println("email: " + username + "parola: " + pwd);
 
-        Utilizator authenticatedUser = userService.checkCredentials(username, pwd);
+        Utilizator authenticatedUser  = userService.checkCredentialsUser(username, pwd);
+        Administrator authenticatedAdmin = serviceAdministrator.checkCredentialsAdmin(username, pwd);
+
         if(authenticatedUser != null){
             req.getSession().setAttribute("authenticatedUser", authenticatedUser);
             resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
         } else {
-            req.setAttribute("error", "Combinatia email/parola este incorecta!");
-            //req.setAttribute("display", "block");
-            req.getRequestDispatcher("/jsps/forms/formLogare.jsp").forward(req, resp);
+            if(authenticatedAdmin != null){
+                req.getSession().setAttribute("authenticatedAdmin", authenticatedAdmin);
+                resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
+            } else {
+                req.setAttribute("error", "Combinatia email/parola este incorecta!");
+                //req.setAttribute("display", "block");
+                req.getRequestDispatcher("/jsps/forms/formLogare.jsp").forward(req, resp);
+            }
         }
+
 
     }
 }

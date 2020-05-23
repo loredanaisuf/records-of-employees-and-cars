@@ -1,5 +1,6 @@
 package ro.siit.servlet;
 
+import ro.siit.model.Administrator;
 import ro.siit.model.Remorca;
 import ro.siit.model.Utilizator;
 import ro.siit.service.ServiceRemorca;
@@ -27,16 +28,17 @@ public class RemorciServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
         System.out.println("email user: " + authenticatedUser);
-        if(authenticatedUser.getEmail().equals("admin")){
-            System.out.println("block");
+        System.out.println("email admin: " + authenticatedAdmin);
+        if(authenticatedAdmin != null){
             req.setAttribute("displayAdmin","block");
-            System.out.println("param: " + req.getAttribute("displayAdmin"));
         }else{
-            System.out.println("none");
             req.setAttribute("displayAdmin","none");
-            System.out.println("param: " + req.getAttribute("displayAdmin"));
         }
+
+        String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+
         String action = req.getParameter("action");
         action = (null == action) ? "remorci" : action;
         switch (action) {
@@ -69,7 +71,7 @@ public class RemorciServlet extends HttpServlet {
                 break;
         }
 
-        List<Remorca> remorci = this.serviceRemorca.getTrails();
+        List<Remorca> remorci = this.serviceRemorca.getTrails(numeFirma);
         req.setAttribute("TrailsTobeDisplayed", remorci);
         req.getRequestDispatcher("/jsps/lists/listaRemorci.jsp").forward(req, resp);
 //                break;
@@ -91,13 +93,19 @@ public class RemorciServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         action = (null == action) ? "remorci" : action;
+
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
+        Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+
+        String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+
         switch (action) {
             case ("addRemorca"):
                 String idRemorca = req.getParameter("nrInmatriculareRemorca");
                 String idMasina = req.getParameter("nrInmatriculareMasina");
                 Integer anulFabricatieiR = Integer.valueOf(req.getParameter("anFabricatieRemorca"));
                 String itpR = req.getParameter("itpRemorca");
-                serviceRemorca.addTrail(new Remorca(idRemorca,idMasina, anulFabricatieiR, itpR));
+                serviceRemorca.addTrail(new Remorca(idRemorca,numeFirma, idMasina, anulFabricatieiR, itpR));
 
 //                List<Remorca> remorci = this.serviceRemorca.getTrails();
 //                req.setAttribute("TrailsTobeDisplayed", remorci);
@@ -109,7 +117,7 @@ public class RemorciServlet extends HttpServlet {
                 idMasina = req.getParameter("nrInmatriculareMasina");
                 anulFabricatieiR = Integer.valueOf(req.getParameter("anFabricatieRemorca"));
                 itpR = req.getParameter("itpRemorca");
-                serviceRemorca.updateTrail(new Remorca(idRemorca, idMasina, anulFabricatieiR, itpR));
+                serviceRemorca.updateTrail(new Remorca(idRemorca, numeFirma, idMasina, anulFabricatieiR, itpR));
 
 //                remorci = this.serviceRemorca.getTrails();
 //                req.setAttribute("TrailsTobeDisplayed", remorci);

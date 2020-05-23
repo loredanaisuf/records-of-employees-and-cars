@@ -1,5 +1,5 @@
 function geoFindMe() {
-
+    console.log("from geoFindMe");
     const status = document.querySelector('#status');
     const mapLink = document.querySelector('#map-link');
 
@@ -13,7 +13,22 @@ function geoFindMe() {
         status.textContent = '';
         mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
         mapLink.textContent = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
+
+        const validateUserPath = "utilizatori?action=coordinates&latitude=" + latitude;
+        console.log("Latitudinea este: " + latitude);
+        console.log(validateUserPath);
+
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.response);
+                var respData = JSON.parse(this.response);
+            }
+        };
+        xhttp.open("GET", validateUserPath, true);
+        xhttp.send();
     }
+
 
     function error() {
         status.textContent = 'Unable to retrieve your location';

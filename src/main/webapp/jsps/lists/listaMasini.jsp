@@ -9,7 +9,7 @@
         <div class="bmd-layout-container bmd-drawer-f-l" >
             <%@ include file="../includes/navbar.jsp"%>
             <main class="bmd-layout-content">
-                <div class="container" style="background-color: #f2f2f2;">
+                <div class="container" style="background-color: #f2f2f2; overflow-x: scroll;">
                     <div class="row">
                         <div class="col-sm-12">
                         </div>
@@ -28,6 +28,8 @@
                                 <th scope="col">AsigurareCasco</th>
                                 <th scope="col">Rovigieta</th>
                                 <th scope="col">Optiuni</th>
+                                <th scope="col">Informatii</th>
+                                <th scope="col">Grafice</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -41,30 +43,38 @@
                                         <td>${masina.casco}</td>
                                         <td>${masina.rovignieta}</td>
                                         <td>
-                                            <!-- <button type="button" class="btn btn-success" onclick="window.location.href='?action=edit&id=${utilizator.id}'">Edit</button> -->
-                                            <a href="?action=editMasina&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Editeaza" style="color: rgba(0, 0, 0, 0.54); "><span class="material-icons">edit</span> </a>
-                                            <a href="?action=deleteMasina&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Sterge" style="display: ${requestScope.displayAdmin};color: rgba(0, 0, 0, 0.54); align-content :center;  "><span class="material-icons">delete</span></a>
-                                            <!--<a href="?action=delete&id=${utilizator.id}">
-                                                <button type="button" class="btn btn-danger">Delete</button>
-                                            </a> -->
-
+                                            <span>
+                                                <a href="?action=editMasina&id=${masina.nrInmatriculare} " title="Editeaza" style="color: rgba(0, 0, 0, 0.54); "><span class="material-icons">edit</span> </a>
+                                                <a href="?action=deleteMasina&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Sterge" style="display: ${requestScope.displayAdmin};color: rgba(0, 0, 0, 0.54); align-content :center;  "><span class="material-icons">delete</span></a>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="?action=addInf&id=${masina.nrInmatriculare}" title="Adauga" style="color: rgba(0, 0, 0, 0.54); " onclick="openForm()"><span class="material-icons" style="align-content: center;">add</span></a>
+                                            <a href="?action=seeInf&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Vezi informatiile" style="color: rgba(0, 0, 0, 0.54); " > <span class="material-icons" style="align-content: center;">info</span></a>
+                                        </td>
+                                        <td>
+                                            <a href="?action=information&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Vezi graficele" style="display: ${requestScope.displayAdmin};color: rgba(0, 0, 0, 0.54); align-content :center;  ">
+                                                <button type="button" style="background-color: rgba(0, 0, 0, 0.54); color: white " >Vezi graficul</button>
+                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
                         </table>
                      </div>
+
                      <div class="row">
-                        <div class="col-sm-12">
+                        <div class="col-sm-12" style="align-content: center">
                             <a href="?action=addMasina">
                                 <button type="button" style="background-color: #660020; color:white; padding: 10px; margin: 20px;" >Adauga masina</button>
                             </a>
+
                         </div>
                      </div>
                 </div>
             </main>
         </div>
-
+        <script type="text/javascript" src="resources/js/popup-form.js"></script>
     </body>
 </html>
 

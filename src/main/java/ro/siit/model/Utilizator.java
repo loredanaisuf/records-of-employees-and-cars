@@ -4,6 +4,7 @@ import java.util.UUID;
 
 public class Utilizator {
     private UUID id;
+    private String firma;
     private String nume;
     private String prenume;
     private String telefon;
@@ -11,8 +12,9 @@ public class Utilizator {
     private String email;
     private String parola;
 
-    public Utilizator(UUID id, String nume, String prenume, String telefon, String id_masina, String email, String parola) {
+    public Utilizator(UUID id, String firma, String nume, String prenume, String telefon, String id_masina, String email, String parola) {
         this.id = id;
+        this.firma = firma;
         this.nume = nume;
         this.prenume = prenume;
         this.telefon = telefon;
@@ -23,6 +25,10 @@ public class Utilizator {
 
     public UUID getId() {
         return id;
+    }
+
+    public String getFirma() {
+        return firma;
     }
 
     public String getNume() {
@@ -53,6 +59,7 @@ public class Utilizator {
     public String toString() {
         return "Utilizator{" +
                 "id=" + id +
+                ", firma='" + firma + '\'' +
                 ", nume='" + nume + '\'' +
                 ", prenume='" + prenume + '\'' +
                 ", telefon='" + telefon + '\'' +

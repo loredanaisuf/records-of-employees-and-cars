@@ -1,7 +1,9 @@
 package ro.siit.servlet;
 
+import ro.siit.model.Administrator;
 import ro.siit.model.Utilizator;
 
+import ro.siit.service.ServiceAdministrator;
 import ro.siit.service.ServiceUtilizator;
 
 import javax.servlet.ServletException;
@@ -17,20 +19,24 @@ import java.util.UUID;
 @WebServlet(urlPatterns = {"/utilizatori"})
 public class UtilizatoriServlet extends HttpServlet {
     private ServiceUtilizator serviceUtilizator;
+    private ServiceAdministrator serviceAdministrator;
 
 
     @Override
     public void init() throws ServletException {
         this.serviceUtilizator = new ServiceUtilizator();
+        this.serviceAdministrator = new ServiceAdministrator();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("display","none");
-
+        req.setAttribute("displayError","none");
         Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
         System.out.println("email user: " + authenticatedUser);
-        if(authenticatedUser.getEmail().equals("admin")){
+        System.out.println("email admin: " + authenticatedAdmin);
+        if(authenticatedAdmin != null){
             req.setAttribute("displayAdmin","block");
         }else{
             req.setAttribute("displayAdmin","none");
@@ -57,8 +63,23 @@ public class UtilizatoriServlet extends HttpServlet {
                 resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
                 break;
 
+            case("pontaj"):
+                userId=req.getParameter("id");
+                utilizator = serviceUtilizator.getUser(UUID.fromString(userId));
+                req.getSession().setAttribute("angajat",utilizator);
+                resp.sendRedirect(req.getServletContext().getContextPath() + "/pontaj");
+                break;
+
+            case("coordinates"):
+                System.out.println("Coordinates doPost");
+                String latitude = req.getParameter("latitude");
+                System.out.println("Latitudinea este: " + latitude);
+                break;
+
             default:
-                List<Utilizator> utilizatori = this.serviceUtilizator.getUsers();
+                String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+                List<Utilizator> utilizatori = this.serviceUtilizator.getUsers(numeFirma);
+                System.out.println(utilizatori);
                 req.setAttribute("UsersTobeDisplayed", utilizatori);
                 req.getRequestDispatcher("/jsps/lists/listaUtilizatori.jsp").forward(req,resp);
         }
@@ -70,6 +91,11 @@ public class UtilizatoriServlet extends HttpServlet {
         String action = req.getParameter("action");
         action = (null == action) ? "utilizatori" : action;
 
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
+        Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+
+        String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+
         switch (action){
             case("add"):
                 String nume = req.getParameter("numeUtilizator");
@@ -78,7 +104,7 @@ public class UtilizatoriServlet extends HttpServlet {
                 String idMasina = req.getParameter("idMasinaUtilizator");
                 String email = req.getParameter("emailUtilizator");
                 String parola = req.getParameter("parolaUtilizator");
-                serviceUtilizator.addUser(new Utilizator(UUID.randomUUID(), nume, prenume, telefon, idMasina, email, parola));
+                serviceUtilizator.addUser(new Utilizator(UUID.randomUUID(), numeFirma, nume, prenume, telefon, idMasina, email, parola));
                 break;
 
             case("edit"):
@@ -90,9 +116,14 @@ public class UtilizatoriServlet extends HttpServlet {
                 idMasina = req.getParameter("idMasinaUtilizator");
                 email = req.getParameter("emailUtilizator");
                 parola = req.getParameter("parolaUtilizator");
-                Utilizator utilizator = new Utilizator(UUID.fromString(userId),nume, prenume, telefon, idMasina, email, parola);
+                Utilizator utilizator = new Utilizator(UUID.fromString(userId),numeFirma, nume, prenume, telefon, idMasina, email, parola);
                 System.out.println(utilizator);
                 serviceUtilizator.updateUser(utilizator);
+                break;
+            case("coordinates"):
+                System.out.println("Coordinates doPost");
+                String latitude = req.getParameter("latitude");
+                System.out.println("Latitudinea este: " + latitude);
                 break;
         }
 

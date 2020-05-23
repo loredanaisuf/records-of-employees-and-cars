@@ -20,13 +20,13 @@
  </header>
 
  <div id="dw-s1" class="bmd-layout-drawer bg-faded" style="color: #660020;">
-<%--     <header>--%>
-<%--         <a class="navbar-brand " style="background-color: #660020; color: white; text-align: center;">Acasa</a>--%>
-<%--     </header>--%>
+     <header>
+         <a href="${pageContext.request.contextPath}/profil" class="navbar-brand " style="background-color: #660020; color: white; text-align: center;">Profilul tau</a>
+     </header>
      <ul class="list-group">
          <a href="${pageContext.request.contextPath}/utilizatori" >
-             <p   class="menu-list" style="background-color: #660020; color: white;">
-                 <i class="material-icons" style="color:white; margin-right: 20px; size: 1px;">person</i>Utilizatori</p>
+             <p   class="menu-list" >
+                 <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">person</i>Utilizatori</p>
          </a>
          <a href="${pageContext.request.contextPath}/calendar">
              <p   class="menu-list" >
@@ -40,7 +40,7 @@
              <p  class="menu-list" >
                  <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">local_shipping</i> Remorci</p>
          </a>
-         <a href="${pageContext.request.contextPath}/utilizatori">
+         <a href="${pageContext.request.contextPath}/locatii">
              <p  class="menu-list">
                  <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">location_on</i>  Vezi locatiile</p>
          </a>

@@ -1,6 +1,8 @@
 <%@ include file="../includes/jsp_jstl.jsp"%>
 <html>
     <head>
+        <%@ include file="../includes/head.jsp"%>
+
         <link href='resources/fullcalendar/core/main.css' rel='stylesheet' />
         <link href='resources/fullcalendar/daygrid/main.css' rel='stylesheet' />
 
@@ -29,24 +31,25 @@
             });
 
         </script>
-
-        <%@ include file="../includes/head.jsp"%>
         <title>Calendar</title>
     </head>
     <body>
-        <%@ include file="../includes/navbar.jsp"%>
-        <div class="container">
+         <div class="bmd-layout-container bmd-drawer-f-l" >
+             <%@ include file="../includes/navbar.jsp"%>
+             <main class="bmd-layout-content">
+                <div class="container">
 
-            <div class="row" style="margin-top: 20px;">
-                <div id='wrap'>
+                    <div class="row" style="margin-top: 20px;">
+                        <div id='wrap'>
 
-                    <div id='calendar'></div>
+                            <div id='calendar'></div>
 
-                    <div style='clear:both'></div>
+                            <div style='clear:both'></div>
+                        </div>
+                    </div>
+
                 </div>
-            </div>
-
-        </div>
-<%--        <jsp:include page="../includes/scripts_body.jsp"/>--%>
+             </main>
+         </div>
     </body>
 </html>

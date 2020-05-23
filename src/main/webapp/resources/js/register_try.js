@@ -35,3 +35,5 @@ function checkUsernameInDB(){
     xhttp.open("GET", validateUserPath, true);
     xhttp.send();
 }
+
+

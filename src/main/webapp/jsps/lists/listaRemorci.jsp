@@ -9,7 +9,7 @@
         <div class="bmd-layout-container bmd-drawer-f-l" >
             <%@ include file="../includes/navbar.jsp"%>
             <main class="bmd-layout-content">
-                <div class="container" style="background-color: #f2f2f2;">
+                <div class="container" style="background-color: #f2f2f2; overflow-x: scroll;">
                     <div class="row">
 
                         <div class="col-sm-12">

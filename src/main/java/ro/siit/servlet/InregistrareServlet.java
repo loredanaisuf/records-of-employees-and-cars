@@ -44,6 +44,7 @@ public class InregistrareServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String numeFirma = req.getParameter("firma");
         String nume = req.getParameter("numeUtilizator");
         String prenume = req.getParameter("prenumeUtilizator");
         String telefon = req.getParameter("telefonUtilizator");
@@ -53,7 +54,7 @@ public class InregistrareServlet extends HttpServlet {
 
         boolean usernameExists = serviceUtilizator.usernameExists(email);
         if(!usernameExists){
-            serviceUtilizator.addUser(new Utilizator(UUID.randomUUID(), nume, prenume, telefon, idMasina, email, parola));
+            serviceUtilizator.addUser(new Utilizator(UUID.randomUUID(), numeFirma, nume, prenume, telefon, idMasina, email, parola));
             req.setAttribute("displaySuccess", "block");
             req.setAttribute("displayLogin", "block");
             req.setAttribute("displayError", "none");

@@ -1,7 +1,10 @@
 package ro.siit.servlet;
 
+import ro.siit.model.Administrator;
+import ro.siit.model.InformatiiMasina;
 import ro.siit.model.Masina;
 import ro.siit.model.Utilizator;
+import ro.siit.service.ServiceInformatii;
 import ro.siit.service.ServiceMasina;
 import ro.siit.service.ServiceUtilizator;
 
@@ -12,31 +15,34 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @WebServlet(urlPatterns = {"/masini"})
 public class MasinaServlet extends HttpServlet {
     private ServiceMasina serviceMasina;
     private ServiceUtilizator serviceUtilizator;
+    private ServiceInformatii serviceInformatii;
 
     @Override
     public void init() throws ServletException {
         this.serviceMasina = new ServiceMasina();
         this.serviceUtilizator = new ServiceUtilizator();
+        this.serviceInformatii = new ServiceInformatii();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
         System.out.println("email user: " + authenticatedUser);
-        if(authenticatedUser.getEmail().equals("admin")){
-            System.out.println("block");
+        System.out.println("email admin: " + authenticatedAdmin);
+        if(authenticatedAdmin != null){
             req.setAttribute("displayAdmin","block");
-            System.out.println("param: " + req.getAttribute("displayAdmin"));
         }else{
-            System.out.println("none");
             req.setAttribute("displayAdmin","none");
-            System.out.println("param: " + req.getAttribute("displayAdmin"));
         }
+
+        String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
 
         String action = req.getParameter("action");
         action = (null == action) ? "masini" : action;
@@ -55,6 +61,10 @@ public class MasinaServlet extends HttpServlet {
                 req.getRequestDispatcher("/jsps/forms/formMasina.jsp").forward(req, resp);
                 break;
 
+            case ("addInf"):
+                req.getRequestDispatcher("/jsps/forms/formInformatiiMasina.jsp").forward(req, resp);
+                break;
+
             case ("deleteMasina"):
                 nrInmatriculare = req.getParameter("id");
                 System.out.println("Numarul de inmatriculare : " + nrInmatriculare);
@@ -62,8 +72,21 @@ public class MasinaServlet extends HttpServlet {
                 resp.sendRedirect(req.getServletContext().getContextPath() + "/masini");
                 break;
 
+            case("information"):
+                nrInmatriculare = req.getParameter("id");
+                System.out.println("Numarul de inmatriculare : " + nrInmatriculare);
+                req.getSession().setAttribute("numarInmatriculare",nrInmatriculare);
+                resp.sendRedirect(req.getServletContext().getContextPath() + "/grafic");
+                break;
+
+            case("seeInf"):
+                nrInmatriculare = req.getParameter("id");
+                req.getSession().setAttribute("numarInmatriculare",nrInmatriculare);
+                resp.sendRedirect(req.getServletContext().getContextPath() + "/informatii");
+                break;
+
             default:
-                List<Masina> masini = this.serviceMasina.getCars();
+                List<Masina> masini = this.serviceMasina.getCars(numeFirma);
                 req.setAttribute("CarsTobeDisplayed", masini);
                 req.getRequestDispatcher("/jsps/lists/listaMasini.jsp").forward(req, resp);
                 break;
@@ -85,6 +108,12 @@ public class MasinaServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         action = (null == action) ? "list" : action;
+
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
+        Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+
+        String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+
         switch (action){
             case("addMasina"):
                 String nrInmatriculare = req.getParameter("nrInmatriculareMasina");
@@ -98,7 +127,7 @@ public class MasinaServlet extends HttpServlet {
                 String rca = req.getParameter("rcaMasina");
                 String casco = req.getParameter("cascoMasina");
                 String rovignieta = req.getParameter("rovignietaMasina");
-                serviceMasina.addCar(new Masina(nrInmatriculare, marca, anulFabricatiei, itp, rca, casco, rovignieta));
+                serviceMasina.addCar(new Masina(nrInmatriculare, numeFirma,marca, anulFabricatiei, itp, rca, casco, rovignieta));
 
 //                List<Masina> masini = this.serviceMasina.getCars();
 //                req.setAttribute("CarsTobeDisplayed", masini);
@@ -115,14 +144,25 @@ public class MasinaServlet extends HttpServlet {
                 rca = req.getParameter("rcaMasina");
                 casco = req.getParameter("cascoMasina");
                 rovignieta = req.getParameter("rovignietaMasina");
-                serviceMasina.updateCar(new Masina(nrInmatriculare, marca, anulFabricatiei, itp, rca, casco, rovignieta));
+                serviceMasina.updateCar(new Masina(nrInmatriculare, numeFirma, marca, anulFabricatiei, itp, rca, casco, rovignieta));
 
 //                masini = this.serviceMasina.getCars();
 //                req.setAttribute("CarsTobeDisplayed", masini);
 //  //              resp.sendRedirect(req.getServletContext().getContextPath() + "/masini");
 //               req.getRequestDispatcher("/jsps/lists/listaMasini.jsp").forward(req, resp);
                 break;
+
+            case ("addInf"):
+                nrInmatriculare = req.getParameter("id");
+                String data = req.getParameter("data");
+                Float numar_km = Float.valueOf(req.getParameter("numar_km"));
+                Integer cantitate = Integer.valueOf(req.getParameter("cantitate"));
+                Float consum = (100*cantitate)/numar_km;
+                System.out.println(new InformatiiMasina(UUID.randomUUID(),nrInmatriculare,data,numar_km,cantitate,consum));
+                serviceMasina.addInf(new InformatiiMasina(UUID.randomUUID(),nrInmatriculare,data,numar_km,cantitate,consum));
+                break;
         }
+
 //        List<Masina> masini = this.serviceMasina.getCars();
 //        req.setAttribute("CarsTobeDisplayed", masini);
 //        req.getRequestDispatcher("/jsps/lists/listaMasini.jsp").forward(req, resp);

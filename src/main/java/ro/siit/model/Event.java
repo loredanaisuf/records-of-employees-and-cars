@@ -5,9 +5,9 @@ import java.util.Date;
 public class Event {
     private String id;
     private String title;
-    private Date date;
+    private String date;
 
-    public Event(String id, String title, Date date) {
+    public Event(String id, String title, String date) {
         this.id = id;
         this.title = title;
         this.date = date;
@@ -19,7 +19,7 @@ public class Event {
         return title;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 

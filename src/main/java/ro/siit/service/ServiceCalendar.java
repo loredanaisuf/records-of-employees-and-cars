@@ -18,30 +18,32 @@ public class ServiceCalendar {
         }
     }
 
-    public List<Event> getDatesFromDB(){
+    public List<Event> getDatesFromDB(String numeFirma){
         List<Event> listOfDates = new ArrayList<>();
 
         try {
-            Statement st = connection.createStatement();
-            ResultSet rs = st.executeQuery("SELECT * FROM masini");
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM masini WHERE firma = ?");
+            ps.setString(1,numeFirma);
+            ResultSet rs = ps.executeQuery();
 
-            Statement st1 = connection.createStatement();
-            ResultSet rs1 = st1.executeQuery("SELECT * FROM remorci");
+            PreparedStatement ps1 = connection.prepareStatement("SELECT * FROM remorci WHERE firma = ?");
+            ps1.setString(1,numeFirma);
+            ResultSet rs1 = ps1.executeQuery();
 
             while (rs.next()){
                 String nameAndItp = "M: " + rs.getString("numar_inmatriculare") + ": Itp";
-                listOfDates.add(new Event("M",nameAndItp, rs.getDate("itp")));
+                listOfDates.add(new Event("M",nameAndItp, rs.getString("itp")));
                 String nameAndRca = "M: " + rs.getString("numar_inmatriculare") + ": RCA";
-                listOfDates.add(new Event("M",nameAndRca, rs.getDate("asigurare_rca")));
+                listOfDates.add(new Event("M",nameAndRca, rs.getString("asigurare_rca")));
                 String nameAndCasco = "M: " + rs.getString("numar_inmatriculare") + ": CASCO";
-                listOfDates.add(new Event("M",nameAndCasco, rs.getDate("asigurare_casco")));
+                listOfDates.add(new Event("M",nameAndCasco, rs.getString("asigurare_casco")));
                 String nameAndRovignieta = "M: " + rs.getString("numar_inmatriculare") + ": Rovignieta";
-                listOfDates.add(new Event("M",nameAndRovignieta, rs.getDate("rovignieta")));
+                listOfDates.add(new Event("M",nameAndRovignieta, rs.getString("rovignieta")));
             }
 
             while(rs1.next()){
                 String name = "R: " + rs1.getString("numar_inmatriculare_remorca") + ": ITP";
-                listOfDates.add(new Event("R",name, rs1.getDate("itp")));
+                listOfDates.add(new Event("R",name, rs1.getString("itp")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
