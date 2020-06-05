@@ -24,11 +24,11 @@ function checkCompanyInDB(){
             console.log(this.response);
             var respData = JSON.parse(this.response)
             if(respData.exists == "true"){
-                $("#errors").html("Aceasta firma este deja inregistrata");
-                $("#errors").css("display", "block");
+                $("#errorsFirm").html("Aceasta firma este deja inregistrata");
+                $("#errorsFirm").css("display", "block");
             }else{
-                $("#errors").html("");
-                $("#errors").css("display", "none");
+                $("#errorsFirm").html("");
+                $("#errorsFirm").css("display", "none");
             }
         }
     };

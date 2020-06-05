@@ -20,24 +20,20 @@
 
                     <div class="row"></div>
                     <div class="row">
-                        <table class="table table-striped" style="margin-top: 40px;">
+                        <table class="table table-striped" id="tableTrails" style="margin-top: 40px;">
                             <thead class=".thead-dark">
                             <tr>
+                                <th scope="col">Optiuni</th>
                                 <th scope="col">NrInmatriculareRemorca</th>
                                 <th scope="col">NrInmatriculareMasina</th>
                                 <th scope="col">AnulFabricatiei</th>
                                 <th scope="col">ITP</th>
-                                <th scope="col">Optiuni</th>
+
                             </tr>
                             </thead>
                             <tbody>
                             <c:forEach var="remorca" items="${requestScope.TrailsTobeDisplayed}">
                                 <tr>
-                                    <th>${remorca.nrInmatriculareRemorca}</th>
-                                    <th>${remorca.nrInmatriculareMasina}</th>
-                                    <td>${remorca.anulFabricatiei}</td>
-                                    <td>${remorca.itp}</td>
-
                                     <td>
 
                                         <a href="?action=editRemorca&id=${remorca.nrInmatriculareRemorca} "data-toggle="tooltip" title="Editeaza" style="color: rgba(0, 0, 0, 0.54);align-content :center;  "><span class="material-icons">edit</span> </a>
@@ -47,6 +43,10 @@
                                         </a> -->
 
                                     </td>
+                                    <th>${remorca.nrInmatriculareRemorca}</th>
+                                    <th>${remorca.nrInmatriculareMasina}</th>
+                                    <td>${remorca.anulFabricatiei}</td>
+                                    <td>${remorca.itp}</td>
                                 </tr>
                             </c:forEach>
 
@@ -65,5 +65,29 @@
                 </div>
             </main>
         </div>
+
+        <script>
+            function searchFunction() {
+                // Declare variables
+                var input, filter, table, tr, td, i, txtValue;
+                input = document.getElementById("input");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("tableTrails");
+                tr = table.getElementsByTagName("tr");
+
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[0];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        </script>
     </body>
 </html>

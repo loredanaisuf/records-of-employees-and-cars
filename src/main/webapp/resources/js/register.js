@@ -24,7 +24,6 @@ function validateForm(){
         return false;
     }
 
-
     $("form[name=inregistrare]").submit();
 }
 

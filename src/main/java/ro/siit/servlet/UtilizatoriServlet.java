@@ -1,9 +1,11 @@
 package ro.siit.servlet;
 
 import ro.siit.model.Administrator;
+import ro.siit.model.Coordonate;
 import ro.siit.model.Utilizator;
 
 import ro.siit.service.ServiceAdministrator;
+import ro.siit.service.ServiceCoordonate;
 import ro.siit.service.ServiceUtilizator;
 
 import javax.servlet.ServletException;
@@ -13,19 +15,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @WebServlet(urlPatterns = {"/utilizatori"})
 public class UtilizatoriServlet extends HttpServlet {
     private ServiceUtilizator serviceUtilizator;
     private ServiceAdministrator serviceAdministrator;
+    private ServiceCoordonate serviceCoordonate;
 
 
     @Override
     public void init() throws ServletException {
         this.serviceUtilizator = new ServiceUtilizator();
         this.serviceAdministrator = new ServiceAdministrator();
+        this.serviceCoordonate = new ServiceCoordonate();
     }
 
     @Override
@@ -34,8 +37,7 @@ public class UtilizatoriServlet extends HttpServlet {
         req.setAttribute("displayError","none");
         Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
         Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
-        System.out.println("email user: " + authenticatedUser);
-        System.out.println("email admin: " + authenticatedAdmin);
+
         if(authenticatedAdmin != null){
             req.setAttribute("displayAdmin","block");
         }else{
@@ -71,15 +73,24 @@ public class UtilizatoriServlet extends HttpServlet {
                 break;
 
             case("coordinates"):
-                System.out.println("Coordinates doPost");
-                String latitude = req.getParameter("latitude");
-                System.out.println("Latitudinea este: " + latitude);
+                String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+
+                String nume = (authenticatedAdmin == null) ? authenticatedUser.getNume() + " " + authenticatedUser.getPrenume() : authenticatedAdmin.getNume() + " " + authenticatedAdmin.getPrenume();
+                String nrInmatriculare = (authenticatedAdmin == null) ? authenticatedUser.getId_masina() : "admin";
+                System.out.println("nume : " + nume + ", nr_inmatriculare: " + nrInmatriculare);
+                System.out.println("Coordinates doGet");
+                String parameters = req.getParameter("coordinates");
+                System.out.println("parameters = " + parameters);
+                String[] coordinates = parameters.split(";");
+                System.out.println("Latitudinea este: " + coordinates[0] + " si longitudinea este: " + coordinates[1]);
+                Coordonate coordonate = new Coordonate(numeFirma, nume, nrInmatriculare, coordinates[0], coordinates[1]);
+                System.out.println("obiectul coordonate: " + coordonate);
+                serviceCoordonate.addCoordinates(coordonate);
                 break;
 
             default:
-                String numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
+                numeFirma = (null == authenticatedAdmin) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
                 List<Utilizator> utilizatori = this.serviceUtilizator.getUsers(numeFirma);
-                System.out.println(utilizatori);
                 req.setAttribute("UsersTobeDisplayed", utilizatori);
                 req.getRequestDispatcher("/jsps/lists/listaUtilizatori.jsp").forward(req,resp);
         }
@@ -119,11 +130,6 @@ public class UtilizatoriServlet extends HttpServlet {
                 Utilizator utilizator = new Utilizator(UUID.fromString(userId),numeFirma, nume, prenume, telefon, idMasina, email, parola);
                 System.out.println(utilizator);
                 serviceUtilizator.updateUser(utilizator);
-                break;
-            case("coordinates"):
-                System.out.println("Coordinates doPost");
-                String latitude = req.getParameter("latitude");
-                System.out.println("Latitudinea este: " + latitude);
                 break;
         }
 

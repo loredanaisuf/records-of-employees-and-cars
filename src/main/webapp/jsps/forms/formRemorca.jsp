@@ -19,31 +19,33 @@
 
     <title>Adaugare</title>
 </head>
-<body style="background-color:#660020 " >
+<body >
 <!-- style="background-image: url('./bg2.jpg');" -->
-<div class="container">
+<div class="container" style="background-color: #f2f2f2;">
     <div class="row" style="align-items: center; margin-top: 10px;">
-        <div class="col-sm-3">
+        <div class="col-sm-12" style="background-color: #660020;" >
+            <h2 style="text-align: center;margin: 15px; color:white">~${requestScope.TrailToEdit eq null ? 'Adaugare' : 'Editare'} Remorca~</h2>
+        </div>
+        <div class="col-sm-2">
             <!-- <h1 style="align-items: center; flex-direction: row; color: #660020;">Logare</h2> -->
         </div>
-        <div class="col-sm-6" style="background-color: #f2f2f2; margin-top: 100px;" >
-            <h1 style="text-align: center; color: #660020; margin-top: 30px;">~Adaugare Remorca~</h1>
-                <div style="align-items: center; background-color: #f2f2f2;">
+        <div class="col-sm-8" style="align-items: center; background-color: #f2f2f2; padding: 15px;" >
+                <div >
                     <form method="post">
                         <div class="form-group">
-                            <label for="nrInmatriculare" style="margin-top: 30px;" >Numarul de inmatriculare remorca</label>
+                            <label for="nrInmatriculare" style="margin-top: 30px;font-weight: bold" >Numarul de inmatriculare remorca</label>
                             <input type="text"class="form-control" id="nrInmatriculare"  name="nrInmatriculareRemorca" aria-describedby="emailHelp" value="${requestScope.TrailToEdit.nrInmatriculareRemorca}">
                         </div>
-                        <div class="form-group" style="margin-bottom: 10px">
+                        <div class="form-group" style="font-weight: bold;">
                             <label for="nrInmatriculareM" >Numarul de inmatriculare masina</label>
                             <input type="text"class="form-control" id="nrInmatriculareM"  name="nrInmatriculareMasina" aria-describedby="emailHelp" value="${requestScope.TrailToEdit.nrInmatriculareMasina}">
                         </div>
                         <div class="form-group">
-                            <label for="anFabricatie" style="color: black;">Anul fabricatiei</label>
+                            <label for="anFabricatie" style="font-weight: bold;">Anul fabricatiei</label>
                             <input type="text"class="form-control" id="anFabricatie"  name="anFabricatieRemorca" aria-describedby="emailHelp" value="${requestScope.TrailToEdit.anulFabricatiei}">
                         </div>
                         <div class="form-group">
-                            <label for="itp">ITP valabil pana la</label>
+                            <label for="itp" style="font-weight: bold;">ITP valabil pana la</label>
                             <input type="date"class="form-control" id="itp"  name="itpRemorca" aria-describedby="emailHelp" value="${requestScope.TrailToEdit.itp}">
                         </div>
 
@@ -54,7 +56,7 @@
                     </form>
                 </div>
 
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <!-- <h1 style="align-items: center; flex-direction: row; color: #660020;">Logare</h2> -->
                 </div>
 

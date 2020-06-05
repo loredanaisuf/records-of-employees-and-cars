@@ -15,9 +15,9 @@ public class ServiceUtilizator {
             Class.forName("org.postgresql.Driver");
 
             System.out.println("Url-ul pt DB este: " + System.getenv("JDBC_DATABASE_URL"));
-            //connection = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
+            connection = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
 
-           connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lori?user=postgres&password=Loredana12");
+           //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lori?user=postgres&password=Loredana12");
             } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

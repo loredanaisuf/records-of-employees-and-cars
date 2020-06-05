@@ -1,22 +1,13 @@
 package ro.siit.service;
 
+import ro.siit.crypt.Password;
 import ro.siit.model.Administrator;
-import ro.siit.model.Utilizator;
+import ro.siit.crypt.EncryptDecryptPassword;
+import ro.siit.service.ServiceUtilizator;
 
 import java.sql.*;
-import java.util.UUID;
 
-public class ServiceAdministrator {
-    protected Connection connection;
-    public ServiceAdministrator() {
-        try {
-            Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lori?user=postgres&password=Loredana12");
-        } catch (ClassNotFoundException | SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
+public class ServiceAdministrator extends ServiceUtilizator {
     public Administrator getAdmin(String firma){
         try {
 
@@ -34,12 +25,25 @@ public class ServiceAdministrator {
     }
 
     public void addAdmin(Administrator administrator){
+        EncryptDecryptPassword edp= null;
         try {
-            System.out.println("From add admin");
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String password= administrator.getParola();
+        String encryptedPassword=edp.encrypt(password);
+        System.out.println("encrypted password: " + encryptedPassword);
+
+        Password.addPasword("companii",administrator.getEmail(),password,encryptedPassword);
+        Password.save();
+
+        try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO companii(nume_firma, email, parola, nume_admin, prenume_admin,telefon,cod) VALUES (?, ?, ?, ?, ?, ?, ?)");
             ps.setObject(1, administrator.getFirma());
             ps.setString(2,administrator.getEmail());
-            ps.setString(3, administrator.getParola());
+            ps.setString(3, encryptedPassword);
             ps.setString(4, administrator.getNume());
             ps.setString(5, administrator.getPrenume());
             ps.setString(6, administrator.getTelefon());
@@ -53,13 +57,24 @@ public class ServiceAdministrator {
 
     public Administrator checkCredentialsAdmin(String username, String password){
         System.out.println("From credentials admin, email: " + username + " parola: " + password);
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String encryptedPassword = edp.encrypt(password);
+        System.out.println("Password: " + password);
+        System.out.println("encrypted password: " + encryptedPassword);
+
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM companii WHERE email = ? AND parola = ?");
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, encryptedPassword);
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
+
                 return new Administrator(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6),rs.getString(7));
             } else {
                 return null;

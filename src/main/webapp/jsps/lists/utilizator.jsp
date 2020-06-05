@@ -8,8 +8,9 @@
 <body>
 <div class="bmd-layout-container bmd-drawer-f-l" >
     <%@ include file="../includes/navbar.jsp"%>
+
     <main class="bmd-layout-content">
-        <div class="container" style="margin-top: 100px;">
+        <div class="container" style="margin-top: 10%;">
             <div class="row">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-8" style="background-color: #f2f2f2; padding-top: 20px; padding-bottom: 20px; ">

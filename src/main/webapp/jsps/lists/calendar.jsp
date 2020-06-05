@@ -36,18 +36,18 @@
     <body>
          <div class="bmd-layout-container bmd-drawer-f-l" >
              <%@ include file="../includes/navbar.jsp"%>
-             <main class="bmd-layout-content">
-                <div class="container">
-
-                    <div class="row" style="margin-top: 20px;">
+             <main class="bmd-layout-content" style="margin-top: 20px; overflow-x: scroll;">
+                <div class="container" style="overflow-x: scroll">
+                    <div class="row">
                         <div id='wrap'>
 
-                            <div id='calendar'></div>
+                            <div id='calendar' ></div>
 
                             <div style='clear:both'></div>
-                        </div>
-                    </div>
 
+                        </div>
+
+                    </div>
                 </div>
              </main>
          </div>

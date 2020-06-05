@@ -1,9 +1,9 @@
 package ro.siit.servlet;
 
+import ro.siit.crypt.EncryptDecryptPassword;
+import ro.siit.crypt.Password;
 import ro.siit.model.Administrator;
-import ro.siit.model.Utilizator;
 import ro.siit.service.ServiceAdministrator;
-import ro.siit.service.ServiceUtilizator;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.UUID;
 
 
 @WebServlet(urlPatterns = {"/inregistrareCompanie"})
@@ -20,6 +19,20 @@ public class AdminServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         this.serviceAdministrator = new ServiceAdministrator();
+        EncryptDecryptPassword td= null;
+        try {
+            td = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        String target="imparator";
+        String target2 ="test";
+        String encrypted=td.encrypt(target);
+        String decrypted=td.decrypt(encrypted);
+
+        Password.addPasword("admini","admin",target,encrypted);
+        Password.save();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

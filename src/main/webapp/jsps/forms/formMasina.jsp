@@ -24,12 +24,12 @@
     <div class="row" style="align-items: center;">
 
         <div class="col-sm-12" style="background-color: #660020;" >
-            <h2 style="text-align: center;margin: 15px; color:white">~Adaugare Masina~</h2>
+            <h2 style="text-align: center;margin: 15px; color:white">~${requestScope.CarToEdit eq null ? 'Adaugare' : 'Editare'} Masina~</h2>
         </div>
 
         <div class="col-sm-2" ></div>
-        <div class="col-sm-8"  >
-            <div style="align-items: center; background-color: #f2f2f2; padding: 15px;">
+        <div class="col-sm-8" style="align-items: center; background-color: #f2f2f2; padding: 15px;">
+            <div >
                 <form method="post">
                     <div class="form-group">
                         <label for="nrInmatriculare" style="font-weight: bold; margin-top: 45px;">Numarul de inmatriculare</label>
@@ -45,9 +45,9 @@
                     </div>
                     <div class="form-group" style="font-weight: bold;">
                         <label for="itp"style="" >ITP valabil pana </label>
-                        <input type="date"class="form-control" id="itp"  name="itpMasina" aria-describedby="emailHelp" value="${requestScope.CarToEdit.itp}>
+                        <input type="date"class="form-control" id="itp"  name="itpMasina" aria-describedby="emailHelp" value="${requestScope.CarToEdit.itp}">
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" >
                         <label for="rca" style="font-weight: bold;">Asigurare RCA valabila pana</label>
                         <input type="date"class="form-control" id="rca"  name="rcaMasina" aria-describedby="emailHelp" value="${requestScope.CarToEdit.rca}">
                     </div>
@@ -60,7 +60,7 @@
                         <input type="date" class="form-control" id="rovignieta" name="rovignietaMasina" value="${requestScope.CarToEdit.rovignieta}">
                     </div>
 
-                     <button type="submit" class="btn btn-primary" style="background-color: #660020; width: 300px; color:white; padding: 10px; margin: 20px; align-items: center; margin-bottom: 60px;">${requestScope.UserToEdit eq null ? 'Adauga' : 'Edit'}</button>
+                     <button type="submit" class="btn btn-primary" style="background-color: #660020; width: 300px; color:white; padding: 10px; margin: 20px; align-items: center; margin-bottom: 50px;">${requestScope.CarToEdit eq null ? 'Adauga' : 'Edit'}</button>
                     <!--<button type="button" style="background-color: #660020; width: 300px; color:white; padding: 10px; margin: 20px; align-items: center; margin-bottom: 60px;" >Adauga</button> -->
 
 

@@ -4,16 +4,11 @@
              <span class="sr-only">Toggle drawer</span>
              <i class="material-icons" style="color: white;">menu</i>
          </button>
-         <span class="navbar-brand mb-0 h1" style=" color: white; margin-left: 200px;">             </span>
-         <span style=" color: white; margin-left: 500px;"></span>
-
-         <form class="form-inline">
-             <input class="form-control mr-sm-2" type="search" placeholder="Cauta" aria-label="Search">
-         </form>
+         <span class="navbar-brand mb-0 h1" style=" color: white;">             </span>
 
          <ul class="nav navbar-nav">
              <li class="nav-item">
-                 <a href="${pageContext.request.contextPath}/logout "data-toggle="tooltip" title="Deconectare" style="color: white; margin-left: -50px; "><span class="material-icons">logout</span> </a>
+                 <a href="${pageContext.request.contextPath}/logout "data-toggle="tooltip" title="Deconectare" style="color: white; "><span class="material-icons">logout</span> </a>
              </li>
          </ul>
      </div>
@@ -46,3 +41,4 @@
          </a>
      </ul>
  </div>
+

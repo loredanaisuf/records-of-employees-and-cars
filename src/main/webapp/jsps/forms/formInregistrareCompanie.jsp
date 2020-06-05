@@ -10,7 +10,7 @@
     <div class="row" style="align-items: center; margin-top: 10px;">
 
         <div class="col-sm-12" style="background-color: #660020;" >
-            <h2 style="text-align: center;margin: 15px; color:white">~Inregistrare companie~</h2>
+            <h3 style="text-align: center;margin: 15px; color:white">~Inregistrare companie~</h3>
         </div>
 
         <div class="col-sm-2" ></div>
@@ -23,41 +23,46 @@
                     <a href="${pageContext.request.contextPath}/login">
                         <button type="button" style="display: <c:out value="${requestScope.displayLogin}"/>; background-color: #660020; width: 300px; color:white; padding: 10px; margin: 20px;" >Logare</button>
                     </a>
-                    <div class="alert alert-danger" style="display: <c:out value="${requestScope.displayError}"/>" id="errors">
+
+                    <div class="alert alert-danger" style="display: <c:out value="${requestScope.displayError}"/>" id="errorsFirm">
                         <c:out value="${requestScope.error}"/>
                     </div>
                     <div class="form-group">
-                        <label for="firma" style="margin-top: 30px;">Firma</label>
+                        <label for="firma" style="font-weight:bold; margin-top: 30px;">Firma</label>
                         <input type="text"class="form-control" id="firma"   onkeyup="validateCompany()" name="firma" >
                     </div>
                     <div class="form-group">
-                        <label for="utilizator" style="margin-top: 30px;" >Nume</label>
+                        <label for="utilizator" style="font-weight: bold;">Nume</label>
                         <input type="text"class="form-control" id="utilizator"  name="numeAdmin">
                     </div>
                     <div class="form-group">
-                        <label for="prenume" style="color: black;">Prenume</label>
+                        <label for="prenume" style="font-weight: bold;">Prenume</label>
                         <input type="text"class="form-control" id="prenume"  name="prenumeAdmin">
                     </div>
                     <div class="form-group">
-                        <label for="cod" >Cod de inregistrare</label>
+                        <label for="cod" style="font-weight: bold;">Cod de inregistrare</label>
                         <input type="text"class="form-control" id="cod"  name="cod">
                     </div>
                     <div class="form-group">
-                        <label for="telefon" >Telefon</label>
+                        <label for="telefon" style="font-weight: bold;">Telefon</label>
                         <input type="text"class="form-control" id="telefon"  name="telefonAdmin">
                     </div>
                     <div class="form-group">
-                        <label for="email" >Email</label>
+                        <label for="email" style="font-weight: bold;">Email</label>
                         <input type="text" class="form-control" id="email" name="emailAdmin" >
                     </div>
 
                     <div class="form-group">
-                        <label for="parola">Parola</label>
-                        <input type="text" class="form-control" id="parola" name="parolaAdmin">
+                        <label for="parola" style="font-weight: bold;">Parola</label>
+                        <input type="password" class="form-control" id="parola" name="parolaAdmin">
                     </div>
                     <div class="form-group">
-                        <label for="parolaConfirm">Confirma parola</label>
-                        <input type="text" class="form-control" id="parolaConfirm" name="parolaConfirmAdmin">
+                        <label for="parolaConfirm" style="font-weight: bold;">Confirma parola</label>
+                        <input type="password" class="form-control" id="parolaConfirm" name="parolaConfirmAdmin">
+                    </div>
+
+                    <div class="alert alert-danger" style="display: <c:out value="${requestScope.displayError}"/>" id="errors">
+                        <c:out value="${requestScope.error}"/>
                     </div>
 
                     <button type="button" style="background-color: #660020; width: 300px; color:white; padding: 10px; margin: 20px; align-items: center; margin-bottom: 50px;" onclick="validateFormAdmin()" >Adauga</button>
