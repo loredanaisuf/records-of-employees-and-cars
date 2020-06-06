@@ -7,20 +7,19 @@
 
     <body>
         <div class="bmd-layout-container bmd-drawer-f-l" >
-            <%@ include file="../includes/navbar.jsp"%>
+            <%@ include file="../includes/navbar_with_search.jsp"%>
             <main class="bmd-layout-content">
                 <div class="container" style="background-color: #f2f2f2; overflow-x: scroll;">
-                    <div class="row">
-
-                        <div class="col-sm-12">
-
-                        </div>
-
+                    <div class="row" style="margin-top: 10px">
+<%--                        <div class="col-sm-9"></div>--%>
+<%--                        <div class="col-sm-3">--%>
+<%--                            <input type="text" id="myInput" onkeyup="searchTrails()" placeholder="Search for vehicle number..">--%>
+<%--                        </div>--%>
                     </div>
 
                     <div class="row"></div>
                     <div class="row">
-                        <table class="table table-striped" id="tableTrails" style="margin-top: 40px;">
+                        <table class="table table-striped" id="tableTrails" style="margin-top: 30px;">
                             <thead class=".thead-dark">
                             <tr>
                                 <th scope="col">Optiuni</th>
@@ -69,6 +68,7 @@
         <script>
             function searchFunction() {
                 // Declare variables
+                console.log("from search trails")
                 var input, filter, table, tr, td, i, txtValue;
                 input = document.getElementById("input");
                 filter = input.value.toUpperCase();
@@ -77,7 +77,7 @@
 
                 // Loop through all table rows, and hide those who don't match the search query
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
+                    td = tr[i].getElementsByTagName("th")[0];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {

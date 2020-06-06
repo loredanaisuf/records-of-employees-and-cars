@@ -12,6 +12,7 @@
                 width: 100%;
             }
         </style>
+        <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,URL"></script>
         <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
 
     </head>
@@ -195,6 +196,8 @@
 
 
                 if (feature) {
+                    $(content).popover('destroy');
+                    console.log("destroy added in if");
                     console.log('Name from if: ' + feature.get('name'));
                     var coordinate = event.coordinate;
                     overlay.setPosition(coordinate);
@@ -202,13 +205,13 @@
                     $(container).popover({
                         placement: 'top',
                         html: true,
-                        content: feature.get('name')
+                        content:  feature.get('name')
                     });
                     console.log('Name from if2: ' + feature.get('name'));
                     $(container).popover('show');
 
                 } else {
-                    $(container).popover('hide');
+                    $(container).popover('destroy');
                 }
             });
 

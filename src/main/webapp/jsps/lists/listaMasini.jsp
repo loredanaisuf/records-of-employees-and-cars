@@ -7,66 +7,19 @@
 
     <body>
         <div class="bmd-layout-container bmd-drawer-f-l" >
-            <header class="bmd-layout-header" style="background-color: #660020;">
-                <div class="navbar navbar-light bg-faded">
-                    <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s1">
-                        <span class="sr-only">Toggle drawer</span>
-                        <i class="material-icons" style="color: white;">menu</i>
-                    </button>
-                    <span class="navbar-brand mb-0 h1" style=" color: white;">             </span>
-
-                    <form class="form-inline">
-                        <input class="form-control mr-sm-2" id="input" type="search"  onkeyup="searchCars()" placeholder="Cauta dupa nume" aria-label="Search">
-                    </form>
-
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item">
-                            <a href="${pageContext.request.contextPath}/logout "data-toggle="tooltip" title="Deconectare" style="color: white; "><span class="material-icons">logout</span> </a>
-                        </li>
-                    </ul>
-                </div>
-            </header>
-
-            <div id="dw-s1" class="bmd-layout-drawer bg-faded" style="color: #660020;">
-                <header>
-                    <a href="${pageContext.request.contextPath}/profil" class="navbar-brand " style="background-color: #660020; color: white; text-align: center;">Profilul tau</a>
-                </header>
-                <ul class="list-group">
-                    <a href="${pageContext.request.contextPath}/utilizatori" >
-                        <p   class="menu-list" >
-                            <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">person</i>Utilizatori</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/calendar">
-                        <p   class="menu-list" >
-                            <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">today</i>Calendar</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/masini">
-                        <p   class="menu-list">
-                            <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">directions_car</i>Masini</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/remorci">
-                        <p  class="menu-list" >
-                            <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">local_shipping</i> Remorci</p>
-                    </a>
-                    <a href="${pageContext.request.contextPath}/locatii">
-                        <p  class="menu-list">
-                            <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">location_on</i>  Vezi locatiile</p>
-                    </a>
-                </ul>
-            </div>
-
+            <%@ include file="../includes/navbar_with_search.jsp"%>
             <main class="bmd-layout-content">
                 <div class="container" style="background-color: #f2f2f2; overflow-x: scroll;">
                     <div class="row">
                         <div class="col-sm-12">
-                            <input type="text" id="myInput" onkeyup="searchCars()" placeholder="Search for names..">
+<%--                            <input type="text" id="myInput" onkeyup="searchCars()" placeholder="Search for names..">--%>
 
                         </div>
                     </div>
 
                      <div class="row"></div>
                      <div class="row">
-                        <table class="table table-striped" id="tableCars" style="margin-top: 10px;">
+                        <table class="table table-striped" id="tableCars" style="margin-top: 30px;">
                             <thead class=".thead-dark">
                             <tr>
                                 <th scope="col">NrInmatriculare</th>
@@ -123,21 +76,21 @@
                 </div>
             </main>
         </div>
-        <script type="text/javascript" src="resources/js/popup-form.js"></script>
+
 
         <script>
-            function searchCars() {
+            function searchFunction() {
                 // Declare variables
                 console.log("From searchCars");
                 var input, filter, table, tr, td, i, txtValue;
-                input = document.getElementById("myInput");
+                input = document.getElementById("input");
                 filter = input.value.toUpperCase();
                 table = document.getElementById("tableCars");
                 tr = table.getElementsByTagName("tr");
 
                 // Loop through all table rows, and hide those who don't match the search query
                 for (i = 0; i < tr.length; i++) {
-                    td = tr[i].getElementsByTagName("td")[0];
+                    td = tr[i].getElementsByTagName("th")[0];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
                         if (txtValue.toUpperCase().indexOf(filter) > -1) {

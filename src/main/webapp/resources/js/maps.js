@@ -46,5 +46,6 @@ function geoFindMe() {
 }
 
 //document.querySelector('#find-me').addEventListener('click', geoFindMe);
-window.addEventListener('load',setInterval);
+window.addEventListener('load',geoFindMe);
+window.addEventListener('load',myVar);
 

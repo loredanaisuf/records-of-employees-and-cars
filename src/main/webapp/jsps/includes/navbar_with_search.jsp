@@ -7,7 +7,7 @@
         <span class="navbar-brand mb-0 h1" style=" color: white;">             </span>
 
         <form class="form-inline">
-            <input class="form-control mr-sm-2" id="input" type="search"  onkeyup="searchFunction()" placeholder="Cauta dupa nume" aria-label="Search">
+            <input class="form-control mr-sm-2" id="input" type="search"  onkeyup="searchFunction()" placeholder="Cauta " aria-label="Search">
         </form>
 
         <ul class="nav navbar-nav">
