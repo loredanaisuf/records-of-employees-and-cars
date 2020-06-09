@@ -49,6 +49,7 @@ public class ServiceRemorca extends ServiceUtilizator {
             ps.setInt(4, remorca.getAnulFabricatiei());
             ps.setString(5, remorca.getItp());
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -59,12 +60,14 @@ public class ServiceRemorca extends ServiceUtilizator {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM remorci WHERE numar_inmatriculare_remorca = ?");
             ps.setString(1, idRemorca);
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void updateTrail(Remorca remorca){
+        System.out.println("from updateTRail: " + remorca);
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE remorci SET numar_inmatriculare_masina = ?, firma = ?, anul_fabricatiei = ?, itp = ? WHERE numar_inmatriculare_remorca = ?");
             ps.setString(5, remorca.getNrInmatriculareRemorca());
@@ -73,8 +76,10 @@ public class ServiceRemorca extends ServiceUtilizator {
             ps.setInt(3, remorca.getAnulFabricatiei());
             ps.setString(4, remorca.getItp());
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
 }

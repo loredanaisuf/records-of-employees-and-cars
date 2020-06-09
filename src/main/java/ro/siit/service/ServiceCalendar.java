@@ -42,4 +42,5 @@ public class ServiceCalendar extends ServiceUtilizator {
 
         return listOfDates;
     }
+
 }

@@ -19,6 +19,7 @@ public class ServicePontaj extends ServiceUtilizator {
             ps.setString(3,pontaj.getData());
             ps.setInt(4,pontaj.getNumarOre());
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -61,4 +62,5 @@ public class ServicePontaj extends ServiceUtilizator {
         }
         return nrOfHours;
     }
+
 }

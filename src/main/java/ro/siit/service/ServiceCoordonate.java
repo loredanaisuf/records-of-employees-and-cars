@@ -56,4 +56,5 @@ public class ServiceCoordonate extends ServiceUtilizator {
         }
         return coordonateList;
     }
+
 }

@@ -24,6 +24,7 @@ public class ServiceMasina extends ServiceUtilizator {
             ps.setString(7, masina.getCasco());
             ps.setString(8, masina.getRovignieta());
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,6 +40,7 @@ public class ServiceMasina extends ServiceUtilizator {
             ps.setInt(5, informatiiMasina.getCantitate());
             ps.setFloat(6,informatiiMasina.getConsum());
             ps.executeUpdate();
+
             System.out.println("from serviceMasina, addInf");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,6 +91,7 @@ public class ServiceMasina extends ServiceUtilizator {
     }
 
     public void updateCar(Masina masina){
+        System.out.println("from updateCar: " + masina);
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE masini SET marca = ?, firma = ?, anul_fabricatiei = ?,  itp = ?, asigurare_rca = ?, asigurare_casco = ? , rovignieta = ? WHERE numar_inmatriculare = ?");
             ps.setString(8, masina.getNrInmatriculare());
@@ -100,6 +103,7 @@ public class ServiceMasina extends ServiceUtilizator {
             ps.setString(6, masina.getCasco());
             ps.setString(7, masina.getRovignieta());
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -15,18 +15,31 @@ public class ServiceAutentificare extends ServiceUtilizator {
             ps.setString(3,tabelAutentificare.getValidator());
             ps.setString(4,tabelAutentificare.getUserId());
             ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteEntity(String selector){
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM utilizatori_auth WHERE selector = ?");
+            ps.setString(1,selector);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void updateEntity(String selector, String validator, String id){
+        System.out.println("From update entity: " + selector + ", " + validator + ", " + id);
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE utilizatori_auth SET selector = ?, validator = ? WHERE id = ?");
             ps.setString(1,selector);
             ps.setString(2,validator);
             ps.setString(3,id);
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -39,9 +52,11 @@ public class ServiceAutentificare extends ServiceUtilizator {
             ps.setString(1, selector);
             ps.setString(2,validator);
             ResultSet rs = ps.executeQuery();
-            rs.next();
-            return new TabelAutentificare(rs.getString("id"),rs.getString("selector"), rs.getString("validator"), rs.getString("user_id"));
-
+            if(rs.next()){
+                return new TabelAutentificare(rs.getString("id"),rs.getString("selector"), rs.getString("validator"), rs.getString("user_id"));
+            } else {
+                return null;
+            }
         } catch (
                 SQLException e) {
             e.printStackTrace();
@@ -49,5 +64,6 @@ public class ServiceAutentificare extends ServiceUtilizator {
 
         return null;
     }
+
 
 }

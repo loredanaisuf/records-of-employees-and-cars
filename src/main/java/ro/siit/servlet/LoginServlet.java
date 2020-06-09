@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         super.init();
         userService = new ServiceUtilizator();
         serviceAdministrator = new ServiceAdministrator();
-        serviceAutentificare = new ServiceAutentificare();
+       // serviceAutentificare = new ServiceAutentificare();
     }
 
     @Override
@@ -47,37 +47,11 @@ public class LoginServlet extends HttpServlet {
 
         if(authenticatedUser != null){
             req.getSession().setAttribute("authenticatedUser", authenticatedUser);
-
-            String selector = UUID.randomUUID().toString();
-            String validator = UUID.randomUUID().toString();
-            serviceAutentificare.addEntity(new TabelAutentificare(UUID.randomUUID().toString(), selector, validator, authenticatedUser.getId().toString()));
-
-            Cookie cookieSelector = new Cookie("selector", selector);
-            cookieSelector.setMaxAge(604800);
-            Cookie cookieValidator = new Cookie("validator", validator);
-            cookieValidator.setMaxAge(604800);
-
-            resp.addCookie(cookieSelector);
-            resp.addCookie(cookieValidator);
             resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
 
         } else {
             if(authenticatedAdmin != null){
                 req.getSession().setAttribute("authenticatedAdmin", authenticatedAdmin);
-
-                String selector = UUID.randomUUID().toString();
-                String validator = UUID.randomUUID().toString();
-                serviceAutentificare.addEntity(new TabelAutentificare(UUID.randomUUID().toString(), selector, validator, authenticatedAdmin.getFirma()));
-
-
-                Cookie cookieSelector = new Cookie("selector", selector);
-                cookieSelector.setMaxAge(604800);
-                Cookie cookieValidator = new Cookie("validator", validator);
-                cookieValidator.setMaxAge(604800);
-
-                resp.addCookie(cookieSelector);
-                resp.addCookie(cookieValidator);
-
                 resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
             } else {
                 req.setAttribute("error", "Combinatia email/parola este incorecta!");

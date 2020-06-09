@@ -50,4 +50,18 @@ public class Masina {
     public String getRovignieta() {
         return rovignieta;
     }
+
+    @Override
+    public String toString() {
+        return "Masina{" +
+                "nrInmatriculare='" + nrInmatriculare + '\'' +
+                ", firma='" + firma + '\'' +
+                ", marca='" + marca + '\'' +
+                ", anulFabricatiei=" + anulFabricatiei +
+                ", itp='" + itp + '\'' +
+                ", rca='" + rca + '\'' +
+                ", casco='" + casco + '\'' +
+                ", rovignieta='" + rovignieta + '\'' +
+                '}';
+    }
 }

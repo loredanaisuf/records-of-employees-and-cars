@@ -28,4 +28,14 @@ public class TabelAutentificare {
     public String getUserId() {
         return userId;
     }
+
+    @Override
+    public String toString() {
+        return "TabelAutentificare{" +
+                "id='" + id + '\'' +
+                ", selector='" + selector + '\'' +
+                ", validator='" + validator + '\'' +
+                ", userId='" + userId + '\'' +
+                '}';
+    }
 }

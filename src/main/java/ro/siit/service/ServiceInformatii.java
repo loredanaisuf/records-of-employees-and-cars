@@ -133,4 +133,5 @@ public class ServiceInformatii extends ServiceUtilizator {
         }
         return consumtion;
     }
+
 }

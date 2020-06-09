@@ -1,8 +1,12 @@
 package ro.siit.servlet;
 
 
+import ro.siit.model.Administrator;
 import ro.siit.model.TabelAutentificare;
+import ro.siit.model.Utilizator;
+import ro.siit.service.ServiceAdministrator;
 import ro.siit.service.ServiceAutentificare;
+import ro.siit.service.ServiceUtilizator;
 
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.*;
@@ -24,49 +28,15 @@ public class LoginFilter implements Filter {
         System.out.println("from filter");
         Object authenticatedUser = httpServletRequest.getSession().getAttribute("authenticatedUser");
         Object authenticatedAdmin = httpServletRequest.getSession().getAttribute("authenticatedAdmin");
-        Cookie[] cookies = httpServletRequest.getCookies();
-        ServiceAutentificare serviceAutentificare = new ServiceAutentificare();
+//        Cookie[] cookies = httpServletRequest.getCookies();
+//        ServiceAutentificare serviceAutentificare = new ServiceAutentificare();
+//        ServiceUtilizator serviceUtilizator = new ServiceUtilizator();
+//        ServiceAdministrator serviceAdministrator = new ServiceAdministrator();
 
         if(authenticatedUser != null || authenticatedAdmin != null)  {
             System.out.println("before filter");
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            if(authenticatedUser == null){
-                System.out.println("before redirect to login");
-
-                String selector = "";
-                String validator = "";
-
-                for (Cookie aCookie : cookies) {
-                    if (aCookie.getName().equals("selector")) {
-                        selector = aCookie.getValue();
-                    } else if (aCookie.getName().equals("validator")) {
-                        validator = aCookie.getValue();
-                    }
-                }
-                if (!"".equals(selector) && !"".equals(validator)) {
-                    TabelAutentificare tabelAutentificare = serviceAutentificare.getEntity(selector,validator);
-                    if(tabelAutentificare != null){
-                        // update new token in database
-                        String newSelector = UUID.randomUUID().toString();
-                        String newValidator = UUID.randomUUID().toString();
-
-                        serviceAutentificare.updateEntity(newSelector, newValidator, tabelAutentificare.getId());
-                        // update cookie
-                        Cookie cookieSelector = new Cookie("selector", newSelector);
-                        cookieSelector.setMaxAge(604800);
-
-                        Cookie cookieValidator = new Cookie("validator", newValidator);
-                        cookieValidator.setMaxAge(604800);
-
-                        httpServletResponse.addCookie(cookieSelector);
-                        httpServletResponse.addCookie(cookieValidator);
-                    }
-                        httpServletRequest.getSession().setAttribute("authenticatedUser", authenticatedUser);
-                }
-
-            }
-
             ((HttpServletResponse) servletResponse).sendRedirect(servletRequest.getServletContext().getContextPath() + "/login");
         }
     }

@@ -71,6 +71,7 @@ public class RemorciServlet extends HttpServlet {
                 break;
         }
 
+        System.out.println("nume firma din remorci: " + numeFirma);
         List<Remorca> remorci = this.serviceRemorca.getTrails(numeFirma);
         req.setAttribute("TrailsTobeDisplayed", remorci);
         req.getRequestDispatcher("/jsps/lists/listaRemorci.jsp").forward(req, resp);

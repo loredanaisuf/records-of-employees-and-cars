@@ -68,6 +68,7 @@ public class ServiceUtilizator {
             PreparedStatement ps = connection.prepareStatement("DELETE FROM utilizatori WHERE id_utilizator = ?");
             ps.setObject(1, id);
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
