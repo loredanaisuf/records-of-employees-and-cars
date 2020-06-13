@@ -17,8 +17,8 @@ public class ServiceUtilizator {
             System.out.println("Url-ul pt DB este: " + System.getenv("JDBC_DATABASE_URL"));
             connection = DriverManager.getConnection(System.getenv("JDBC_DATABASE_URL"));
 
-           //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lori?user=postgres&password=Loredana12");
-            } catch (ClassNotFoundException | SQLException e) {
+            //connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/Lori?user=postgres&password=Loredana12");
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -46,6 +46,15 @@ public class ServiceUtilizator {
     }
 
     public void addUser(Utilizator utilizator){
+        try{
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO coordonatele_curente(nume_firma, nume, nr_inmatriculare, latitudine, longitudine) VALUES (?, ?, ?,'','')");
+            ps.setString(1,utilizator.getFirma());
+            ps.setString(2,utilizator.getNume() + " " + utilizator.getPrenume());
+            ps.setString(3,utilizator.getId_masina());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO utilizatori(id_utilizator, firma, id_masina, nume, prenume, telefon, email, parola) VALUES (?, ?, ?, ?, ?,?,?,?)");
             ps.setObject(1, utilizator.getId());

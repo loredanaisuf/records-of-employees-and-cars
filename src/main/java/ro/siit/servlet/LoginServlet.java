@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
         super.init();
         userService = new ServiceUtilizator();
         serviceAdministrator = new ServiceAdministrator();
-       // serviceAutentificare = new ServiceAutentificare();
+        // serviceAutentificare = new ServiceAutentificare();
     }
 
     @Override

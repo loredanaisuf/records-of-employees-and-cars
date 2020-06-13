@@ -11,6 +11,57 @@
                 height: 700px;
                 width: 100%;
             }
+            .ol-popup {
+                position: absolute;
+                background-color: white;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+                padding: 15px;
+                border-radius: 10px;
+                border: 1px solid #cccccc;
+                bottom: 12px;
+                left: -50px;
+                min-width: 200px;
+            }
+            .ol-popup:after, .ol-popup:before {
+                top: 100%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+            .ol-popup:after {
+                border-top-color: white;
+                border-width: 10px;
+                left: 48px;
+                margin-left: -10px;
+            }
+            .ol-popup:before {
+                border-top-color: #cccccc;
+                border-width: 11px;
+                left: 48px;
+                margin-left: -11px;
+            }
+            .ol-popup-closer {
+                text-decoration: none;
+                position: absolute;
+                top: 2px;
+                right: 8px;
+            }
+            .ol-popup-closer:after {
+                content: "x";
+            }
+
+            .form-check-label{
+                font-weight: bold;
+                color: #660020;
+                margin-bottom: 10px;
+                size: 20px;
+            }
+            .form-check{
+                margin-left: 20px;
+            }
         </style>
         <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=fetch,requestAnimationFrame,Element.prototype.classList,URL"></script>
         <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
@@ -19,15 +70,14 @@
     <body>
         <div class="bmd-layout-container bmd-drawer-f-l" >
             <%@ include file="../includes/navbar.jsp"%>
-            <main class="bmd-layout-content">
-                <div id="map" class="map">
-                    <div id="popup" class="ol-popup">
-                        <a href="#" id="popup-closer" class="ol-popup-closer"></a>
-                        <div id="popup-content"></div>
-                    </div>
+            <main class="bmd-layout-content" style="overflow-y: scroll">
+                <div id="map" class="map"></div>
+                <div id="popup" class="ol-popup">
+                    <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+                    <div id="popup-content"></div>
                 </div>
 
-                <select id="layer-select">
+                <select id="layer-select" style="display: none">
                     <option value="normal.day" selected>Normal Day</option>
                     <option value="normal.day.transit">Normal Day Transit</option>
                     <option value="pedestrian.day">Pedestrian Day</option>
@@ -35,6 +85,25 @@
                     <option value="satellite.day">Satellite Day</option>
                     <option value="hybrid.day">Hybrid Day</option>
                 </select>
+
+                <div class="container" style=" margin: 15px; ">
+                    <div class="row">
+
+                        <div class="col-sm-12" style=" padding: 15px">
+                            <p class="form-check-label"> Selecteaza masinile: </p>
+                            <form method="post" class="form-check">
+                                <c:forEach var="car" items="${requestScope.carsList}">
+                                    <input class="form-check-input" type="checkbox" value="true" name=${car.nrInmatriculare}  id=${car.nrInmatriculare}>
+                                    <label class="form-check-label" for=${car.nrInmatriculare}  >
+                                            ${car.nrInmatriculare}
+                                    </label> <br>
+                                </c:forEach>
+                                <button type="submit" style="background-color: #660020; color:white; padding: 10px" >Submit</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
             </main>
         </div>
 
@@ -196,22 +265,18 @@
 
 
                 if (feature) {
-                    $(content).popover('destroy');
+                    console.log("Popups: " + map.popups);
+                    // $(container).popover('destroy');
                     console.log("destroy added in if");
                     console.log('Name from if: ' + feature.get('name'));
                     var coordinate = event.coordinate;
-                    overlay.setPosition(coordinate);
+
                     //content.innerHTML = feature.get('name');
-                    $(container).popover({
-                        placement: 'top',
-                        html: true,
-                        content:  feature.get('name')
-                    });
-                    console.log('Name from if2: ' + feature.get('name'));
-                    $(container).popover('show');
+                    content.innerHTML = feature.get('name');
+                    overlay.setPosition(coordinate);
 
                 } else {
-                    $(container).popover('destroy');
+                    overlay.setPosition(undefined);
                 }
             });
 

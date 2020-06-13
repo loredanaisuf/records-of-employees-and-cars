@@ -4,11 +4,13 @@
             <span class="sr-only">Toggle drawer</span>
             <i class="material-icons" style="color: white;">menu</i>
         </button>
+
         <span class="navbar-brand mb-0 h1" style=" color: white;">             </span>
 
-        <form class="form-inline">
-            <input class="form-control mr-sm-2" id="input" type="search"  onkeyup="searchFunction()" placeholder="Cauta " aria-label="Search">
-        </form>
+        <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-p4">
+            <span class="sr-only">Toggle drawer</span>
+            <span> Selectaza masinile </span>
+        </button>
 
         <ul class="nav navbar-nav">
             <li class="nav-item">
@@ -43,9 +45,13 @@
             <p  class="menu-list">
                 <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">location_on</i>  Vezi locatiile</p>
         </a>
-        <a href="${pageContext.request.contextPath}/istoric">
-            <p  class="menu-list">
-                <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">explore</i>  Istoric curse</p>
-        </a>
     </ul>
+
+    <ul class="list-group">
+        <a class="list-group-item">Link 1</a>
+        <a class="list-group-item">Link 2</a>
+        <a class="list-group-item">Link 3</a>
+    </ul>
+
 </div>
+

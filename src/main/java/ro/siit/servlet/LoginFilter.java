@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.UUID;
 
-@WebFilter(urlPatterns = {"/utilizatori", "/masini", "/remorci", "/calendar", "/pontaj", "/locatii", "/grafic", "/informatii", "/profil"})
+@WebFilter(urlPatterns = {"/utilizatori", "/masini", "/remorci", "/calendar", "/pontaj", "/locatii", "/grafic", "/informatii", "/profil", "/istoric"})
 public class LoginFilter implements Filter {
 
     public void init(FilterConfig arg0) throws ServletException {}
