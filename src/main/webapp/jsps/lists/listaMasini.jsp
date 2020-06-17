@@ -49,7 +49,7 @@
                                             <a href="?action=seeInf&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Vezi informatiile" style="color: rgba(0, 0, 0, 0.54); " > <span class="material-icons" style="align-content: center;">info</span></a>
                                         </td>
                                         <td>
-                                            <a href="?action=information&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Vezi graficele" style="display: ${requestScope.displayAdmin};color: rgba(0, 0, 0, 0.54); align-content :center;  ">
+                                            <a href="?action=information&id=${masina.nrInmatriculare} "data-toggle="tooltip" title="Vezi graficele" style="color: rgba(0, 0, 0, 0.54); align-content :center;  ">
                                                 <button type="button" style="background-color: rgba(0, 0, 0, 0.54); color: white " >Vezi graficul</button>
                                             </a>
                                         </td>

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class ConnectionManager {
     // static variable single_instance of type Singleton
     private static ConnectionManager single_instance = null;
-    protected Connection connection;
+    private Connection connection;
 
 
     // private constructor restricted to this class itself
@@ -32,6 +32,10 @@ public class ConnectionManager {
             single_instance = new ConnectionManager();
 
         return single_instance;
+    }
+
+    public Connection getConnection(){
+        return connection;
     }
 
     @Override

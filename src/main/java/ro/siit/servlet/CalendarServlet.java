@@ -31,6 +31,12 @@ public class CalendarServlet extends HttpServlet {
         Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
         Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
 
+        if(authenticatedAdmin != null){
+            req.setAttribute("displayAdmin","block");
+        }else{
+            req.setAttribute("displayAdmin","none");
+        }
+
         String numeFirma = (authenticatedAdmin == null) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
 
         List<Event> events = new ArrayList<>();

@@ -39,7 +39,7 @@
              <p  class="menu-list">
                  <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">location_on</i>  Vezi locatiile</p>
          </a>
-         <a href="${pageContext.request.contextPath}/istoric">
+         <a href="${pageContext.request.contextPath}/istoric" style="display: ${requestScope.displayAdmin}">
              <p  class="menu-list">
                  <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">explore</i>  Istoric curse</p>
          </a>

@@ -30,6 +30,11 @@ public class HartaServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
         Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
+        if(authenticatedAdmin != null){
+            req.setAttribute("displayAdmin","block");
+        }else{
+            req.setAttribute("displayAdmin","none");
+        }
 
         String numeFirma = (authenticatedAdmin == null) ? authenticatedUser.getFirma() : authenticatedAdmin.getFirma();
 
