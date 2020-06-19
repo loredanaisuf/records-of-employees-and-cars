@@ -1,0 +1,180 @@
+-- CREATE TABLE informatii_masini(
+-- 	id_masina VARCHAR(10),
+-- 	itp DATE,
+-- 	asigurare_rca DATE,
+-- 	asigurare_casco DATE,
+-- 	rovignieta DATE
+-- );
+
+--INSERT INTO informatii_masini(id_masina, itp, asigurare_rca, asigurare_casco, rovignieta) VALUES ('GJ88YIL','2020-05-04','2020-05-04','2020-05-04','2020-05-04');
+--INSERT INTO informatii_masini(id_masina, itp, asigurare_rca, asigurare_casco, rovignieta) VALUES ('GJ77YIL','2020-04-04','2020-04-04','2020-04-04','2020-04-04');
+
+--SELECT * FROM informatii_masini;
+
+-- CREATE TABLE remorci(
+-- 	id_remorca VARCHAR(10),
+-- 	anul_fabricatiei INT,
+-- 	itp DATE,
+-- 	PRIMARY KEY(id_remorca)
+-- );
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+--  CREATE TABLE informatii_masini(
+--   	id_masina VARCHAR(10),
+--   	itp DATE,
+--   	asigurare_rca DATE,
+--   	asigurare_casco DATE,
+--   	rovignieta DATE,
+--  	PRIMARY KEY(id_masina)
+--   );
+
+-- INSERT INTO informatii_masini(id_masina, itp, asigurare_rca, asigurare_casco, rovignieta) VALUES ('GJ88YIL','2020-05-04','2020-05-04','2020-05-04','2020-05-04');
+-- INSERT INTO informatii_masini(id_masina, itp, asigurare_rca, asigurare_casco, rovignieta) VALUES ('GJ77YIL','2020-04-04','2020-04-04','2020-04-04','2020-04-04');
+
+ --SELECT * FROM informatii_masini;
+
+-- CREATE TABLE remorci(
+-- 	id_remorca VARCHAR(10),
+-- 	anul_fabricatiei INT,
+-- 	itp DATE,
+-- 	PRIMARY KEY(id_remorca)
+-- );
+
+--INSERT INTO remorci(id_remorca, anul_fabricatiei, itp) VALUES ('GJ10YIL', 2008, '2020-06-07');
+--INSERT INTO remorci(id_remorca, anul_fabricatiei, itp) VALUES ('GJ20YIL', 2010, '2020-04-07');
+
+--SELECT * FROM remorci
+
+-- CREATE TABLE masini(
+--    	numar_inmatriculare VARCHAR(10) NOT NULL,
+--    	marca VARCHAR(50),
+--    	anul_fabricatiei INT,
+--    	numar_inmatriculare_remorca VARCHAR(10),
+--     itp DATE,
+--     asigurare_rca DATE,
+--     asigurare_casco DATE,
+--     rovignieta DATE,
+--    	PRIMARY KEY(numar_inmatriculare),
+--    	FOREIGN KEY(numar_inmatriculare_remorca) REFERENCES remorci(id_remorca)
+--  );
+
+--INSERT INTO masini(numar_inmatriculare, marca, anul_fabricatiei, numar_inmatriculare_remorca,itp, asigurare_rca, asigurare_casco, rovignieta) VALUES ('GJ88YIL', 'IVECO', 2010, 'GJ10YIL','2020-05-04','2020-05-04','2020-05-04','2020-05-04');
+--INSERT INTO masini(numar_inmatriculare, marca, anul_fabricatiei, numar_inmatriculare_remorca,itp, asigurare_rca, asigurare_casco, rovignieta) VALUES ('GJ77YIL', 'IVECO', 2012, 'GJ20YIL','2020-06-04','2020-06-04','2020-06-04','2020-06-04');
+
+--SELECT * FROM masini;
+
+-- CREATE TABLE utilizatori(
+-- 	id_utilizator UUID,
+-- 	id_masina VARCHAR(10),
+-- 	nume VARCHAR(50),
+-- 	prenume VARCHAR(70),
+-- 	telefon VARCHAR(15),
+-- 	email VARCHAR(100),
+-- 	parola VARCHAR(50)
+-- );
+
+--INSERT INTO utilizatori(id_utilizator, id_masina, nume, prenume, telefon, email, parola) VALUES ('f768b4e0-15b4-4cdb-9793-f9c172e789ff', 'GJ77YIL', 'Bubulete', 'Cosmin', '0765142389', 'cosminb@yahoo.com', 'cosmin123')
+--INSERT INTO utilizatori(id_utilizator, id_masina, nume, prenume, telefon, email, parola) VALUES ('d71de0e4-d088-48e8-8c09-ebcd81cfbe85', 'GJ88YIL', 'Stoiconiu', 'Marian', '0723458129', 'miti_s@yahoo.com', 'Miti@')
+
+SELECT * FROM utilizatori
+
+---------------------------UPDATE------------------------
+
+
+CREATE TABLE masini(
+     	numar_inmatriculare VARCHAR(10) NOT NULL,
+	firma VARCHAR(50),
+     	marca VARCHAR(50),
+     	anul_fabricatiei INT,
+        itp VARCHAR(15),
+        asigurare_rca VARCHAR(15),
+        asigurare_casco VARCHAR(15),
+        rovignieta VARCHAR(15),
+     	PRIMARY KEY(numar_inmatriculare),
+	FOREIGN KEY(firma) REFERENCES companii(nume_firma)
+ );
+
+CREATE TABLE remorci(
+   	numar_inmatriculare_remorca VARCHAR(10),
+	firma VARCHAR(50),
+	numar_inmatriculare_masina VARCHAR(10),
+  	anul_fabricatiei INT,
+  	itp VARCHAR(15),
+  	PRIMARY KEY(numar_inmatriculare_remorca),
+ 	FOREIGN KEY (numar_inmatriculare_masina) REFERENCES masini(numar_inmatriculare),
+	FOREIGN KEY(firma) REFERENCES companii(nume_firma)
+);
+
+CREATE TABLE informatii_masini(
+	id UUID NOT NULL,
+	numar_inmatriculare VARCHAR(10),
+	data VARCHAR(15),
+	numar_km FLOAT,
+	cantitate_motorina INT,
+	consum FLOAT,
+	PRIMARY KEY(id),
+	FOREIGN KEY(numar_inmatriculare) REFERENCES masini(numar_inmatriculare)
+);
+
+CREATE TABLE companii(
+	nume_firma VARCHAR(50) NOT NULL,
+	email VARCHAR(50),
+	parola VARCHAR(50),
+	nume_admin VARCHAR(50),
+	prenume_admin VARCHAR(50),
+	telefon VARCHAR(20),
+	cod VARCHAR(15),
+	PRIMARY KEY(nume_firma)
+);
+
+CREATE TABLE utilizatori(
+  	id_utilizator UUID,
+ 	firma VARCHAR(50),
+  	id_masina VARCHAR(10),
+  	nume VARCHAR(50),
+  	prenume VARCHAR(70),
+  	telefon VARCHAR(15),
+  	email VARCHAR(100),
+  	parola VARCHAR(50),
+ 	PRIMARY KEY(id_utilizator),
+ 	FOREIGN KEY(firma) REFERENCES companii(nume_firma)
+ );
+
+CREATE TABLE pontaj(
+	id_angajat UUID,
+	nume_prenume VARCHAR(50),
+	data VARCHAR(15), 
+	nr_ore INT
+);
+
+CREATE TABLE coordonate(
+	nume_firma VARCHAR(50),
+	nume VARCHAR(50),
+	nr_inmatriculare VARCHAR(15),
+	latitudine VARCHAR(50),
+	longitudine VARCHAR(50)
+);
+
+CREATE TABLE coordonatele_curente(
+	nume_firma VARCHAR(50),
+	nume VARCHAR(50),
+	nr_inmatriculare VARCHAR(15),
+	latitudine VARCHAR(50),
+	longitudine VARCHAR(50)
+);
+
+CREATE TABLE utilizatori_auth(
+	id VARCHAR(50),
+	selector VARCHAR(50),
+	validator VARCHAR(50),
+	user_id VARCHAR(50),
+	PRIMARY KEY (id)
+);
+CREATE TABLE companii_auth(
+	id VARCHAR(50),
+	selector VARCHAR(50),
+	validator VARCHAR(50),
+	admin_id VARCHAR(50),
+	PRIMARY KEY (id)
+);

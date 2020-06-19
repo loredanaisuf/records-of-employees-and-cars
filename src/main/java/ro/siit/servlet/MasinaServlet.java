@@ -1,5 +1,6 @@
 package ro.siit.servlet;
 
+import org.apache.poi.ss.usermodel.Workbook;
 import ro.siit.model.Administrator;
 import ro.siit.model.InformatiiMasina;
 import ro.siit.model.Masina;
@@ -81,8 +82,16 @@ public class MasinaServlet extends HttpServlet {
 
             case("seeInf"):
                 nrInmatriculare = req.getParameter("id");
-                req.getSession().setAttribute("numarInmatriculare",nrInmatriculare);
-                resp.sendRedirect(req.getServletContext().getContextPath() + "/informatii");
+//                req.getSession().setAttribute("numarInmatriculare",nrInmatriculare);
+//                resp.sendRedirect(req.getServletContext().getContextPath() + "/informatii");
+
+                List<InformatiiMasina> informatiiMasinaList = serviceInformatii.getInformation(nrInmatriculare);
+                //byte[] bits = serviceMasina.getXLSFile(informatiiMasinaList);
+                Workbook workbook = serviceMasina.getXLSFile(informatiiMasinaList);
+                resp.setContentType("text/plain");
+                resp.setHeader("Content-disposition", "attachment; filename=informatii.xlsx");
+                workbook.write(resp.getOutputStream());
+
                 break;
 
             default:

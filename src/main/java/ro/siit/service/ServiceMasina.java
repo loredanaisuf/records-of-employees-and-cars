@@ -1,15 +1,19 @@
 package ro.siit.service;
 
 
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import ro.siit.model.InformatiiMasina;
-import ro.siit.model.InformatiiPtGrafic;
 import ro.siit.model.Masina;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.sql.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 public class ServiceMasina extends ServiceUtilizator {
 
     public void addCar(Masina masina){
@@ -107,6 +111,61 @@ public class ServiceMasina extends ServiceUtilizator {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public Workbook getXLSFile(List<InformatiiMasina> informatiiMasinaList){
+        String[] columns = {"Nr inmatriculare", "Numaul de km", "Cantitatea de motorina", "Consumul", "Data"};
+
+        // Using XSSF for xlsx format, for xls use HSSF
+        Workbook workbook = new XSSFWorkbook();
+
+        Sheet sheet = workbook.createSheet("Informatii masini");
+        // Create a Font for styling header cells
+        Font headerFont = workbook.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeightInPoints((short) 14);
+//        headerFont.setColor(IndexedColors.RED.getIndex());
+
+        // Create a CellStyle with the font
+        CellStyle headerCellStyle = workbook.createCellStyle();
+        headerCellStyle.setFont(headerFont);
+
+        int rowIndex = 0;
+
+        // Create a Row
+        Row headerRow = sheet.createRow(rowIndex++);
+        // Create cells
+        for(int i = 0; i < columns.length; i++) {
+            Cell cell = headerRow.createCell(i);
+            cell.setCellValue(columns[i]);
+            cell.setCellStyle(headerCellStyle);
+        }
+
+        for(InformatiiMasina informatiiMasina : informatiiMasinaList){
+            Row row = sheet.createRow(rowIndex++);
+            int cellIndex = 0;
+            //first place in row
+            row.createCell(cellIndex++).setCellValue(informatiiMasina.getNumarInmariculare());
+
+            //second place in row
+            row.createCell(cellIndex++).setCellValue(informatiiMasina.getNumarKm());
+
+            //third place in row
+            row.createCell(cellIndex++).setCellValue(informatiiMasina.getCantitate());
+
+            //fourth place in row
+            row.createCell(cellIndex++).setCellValue(informatiiMasina.getConsum());
+
+            //fifth place in row
+            row.createCell(cellIndex++).setCellValue(informatiiMasina.getData());
+
+        }
+
+        // Resize all columns to fit the content size
+        for(int i = 0; i < columns.length; i++) {
+            sheet.autoSizeColumn(i);
+        }
+        return workbook;
     }
 
 }
