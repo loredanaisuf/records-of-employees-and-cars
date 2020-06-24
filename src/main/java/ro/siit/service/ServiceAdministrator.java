@@ -9,13 +9,21 @@ import java.sql.*;
 
 public class ServiceAdministrator extends ServiceUtilizator {
     public Administrator getAdmin(String firma){
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
 
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM companii WHERE nume_firma = ?");
             ps.setObject(1, firma);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new Administrator(rs.getString("nume_firma"),rs.getString("email"), rs.getString("parola"), rs.getString("nume_admin"), rs.getString("prenume_admin"), rs.getString("telefon"), rs.getString("cod"));
+            String encryptPassword = rs.getString("parola");
+            String decryptPassword = edp.decrypt(encryptPassword);
+            return new Administrator(rs.getString("nume_firma"),rs.getString("email"), decryptPassword, rs.getString("nume_admin"), rs.getString("prenume_admin"), rs.getString("telefon"), rs.getString("cod"));
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,10 +42,6 @@ public class ServiceAdministrator extends ServiceUtilizator {
 
         String password= administrator.getParola();
         String encryptedPassword=edp.encrypt(password);
-        System.out.println("encrypted password: " + encryptedPassword);
-
-        Password.addPasword("companii",administrator.getEmail(),password,encryptedPassword);
-        Password.save();
 
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO companii(nume_firma, email, parola, nume_admin, prenume_admin,telefon,cod) VALUES (?, ?, ?, ?, ?, ?, ?)");

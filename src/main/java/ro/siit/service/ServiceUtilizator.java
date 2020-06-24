@@ -1,5 +1,6 @@
 package ro.siit.service;
 
+import ro.siit.crypt.EncryptDecryptPassword;
 import ro.siit.model.Utilizator;
 
 import java.sql.*;
@@ -29,15 +30,22 @@ public class ServiceUtilizator {
     }
     public List<Utilizator> getUsers(String companyName){
         ArrayList<Utilizator> utilizatori = new ArrayList<>();
-
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM utilizatori WHERE firma = ?");
             ps.setObject(1, companyName);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-                System.out.println(new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"),rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), rs.getString("parola")));
-                utilizatori.add(new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"),rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), rs.getString("parola")));
+                String encryptPassword = rs.getString("parola");
+                String decryptPassword = edp.decrypt(encryptPassword);
+                System.out.println(new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"),rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), decryptPassword));
+                utilizatori.add(new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"),rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), decryptPassword));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,6 +67,14 @@ public class ServiceUtilizator {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String password= utilizator.getParola();
+        String encryptedPassword=edp.encrypt(password);
         try {
             PreparedStatement ps = connection.prepareStatement("INSERT INTO utilizatori(id_utilizator, firma, id_masina, nume, prenume, telefon, email, parola) VALUES (?, ?, ?, ?, ?,?,?,?)");
             ps.setObject(1, utilizator.getId());
@@ -68,7 +84,7 @@ public class ServiceUtilizator {
             ps.setString(5, utilizator.getPrenume());
             ps.setString(6, utilizator.getTelefon());
             ps.setString(7, utilizator.getEmail());
-            ps.setString(8, utilizator.getParola());
+            ps.setString(8, encryptedPassword);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -88,13 +104,21 @@ public class ServiceUtilizator {
     }
 
     public Utilizator getUser(UUID idUser){
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         try {
 
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM utilizatori WHERE id_utilizator = ?");
             ps.setObject(1, idUser);
             ResultSet rs = ps.executeQuery();
             rs.next();
-            return new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"),rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), rs.getString("parola"));
+            String encryptPassword = rs.getString("parola");
+            String decryptPassword = edp.decrypt(encryptPassword);
+            return new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"),rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), decryptPassword);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,6 +128,14 @@ public class ServiceUtilizator {
     }
 
     public void updateUser(Utilizator utilizator){
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String password= utilizator.getParola();
+        String encryptedPassword=edp.encrypt(password);
         try {
             PreparedStatement ps = connection.prepareStatement("UPDATE utilizatori SET id_masina = ?, firma = ?, nume = ?, prenume = ?, telefon = ?, email = ?, parola = ?  WHERE id_utilizator = ?");
             ps.setObject(8, utilizator.getId());
@@ -113,7 +145,7 @@ public class ServiceUtilizator {
             ps.setString(4, utilizator.getPrenume());
             ps.setString(5, utilizator.getTelefon());
             ps.setString(6, utilizator.getEmail());
-            ps.setString(7, utilizator.getParola());
+            ps.setString(7, encryptedPassword);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -122,15 +154,21 @@ public class ServiceUtilizator {
     }
 
     public Utilizator checkCredentialsUser(String username, String password){
-
+        EncryptDecryptPassword edp= null;
+        try {
+            edp = new EncryptDecryptPassword();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String encryptedPassword=edp.encrypt(password);
         try {
             PreparedStatement ps = connection.prepareStatement("SELECT * FROM utilizatori WHERE email = ? AND parola = ?");
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, encryptedPassword);
 
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-                Utilizator utilizator = new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"), rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"),rs.getString("parola"));
+                Utilizator utilizator = new Utilizator(UUID.fromString(rs.getObject("id_utilizator").toString()), rs.getString("firma"), rs.getString("nume"), rs.getString("prenume"), rs.getString("telefon"), rs.getString("id_masina"), rs.getString("email"), password);
                 System.out.println("user from checkcredintial: " +  utilizator);
                 return utilizator;
             } else {
