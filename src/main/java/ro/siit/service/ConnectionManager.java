@@ -38,8 +38,8 @@ public class ConnectionManager {
         return connection;
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        this.connection.close();
-    }
+//    @Override
+//    protected void finalize() throws Throwable {
+//        this.connection.close();
+//    }
 }

@@ -41,7 +41,7 @@
          </a>
          <a href="${pageContext.request.contextPath}/istoric" style="display: ${requestScope.displayAdmin}">
              <p  class="menu-list">
-                 <i class="material-icons" style="color:#660020; margin-right: 20px; size: 1px;">explore</i>  Istoric curse</p>
+                 <i class="material-icons" style="display: ${requestScope.displayAdmin}; color:#660020; margin-right: 20px; size: 1px;">explore</i>  Istoric curse</p>
          </a>
      </ul>
  </div>

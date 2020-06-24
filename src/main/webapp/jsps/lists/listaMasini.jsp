@@ -68,7 +68,7 @@
                      <div class="row">
                         <div class="col-sm-12" style="align-content: center">
                             <a href="?action=addMasina">
-                                <button type="button" style="background-color: #660020; color:white; padding: 10px; margin: 20px;" >Adauga masina</button>
+                                <button type="button" style="display: ${requestScope.displayAdmin};background-color: #660020; color:white; padding: 10px; margin: 20px;" >Adauga masina</button>
                             </a>
 
                         </div>

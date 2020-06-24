@@ -6,32 +6,32 @@
         <title>Logare</title>
     </head>
 
-    <body>
+    <body style="background-color: #660020">
 <!--   style="background-image: url('./bordo1.jpg');" ></body>-->
         <div class="bmd-layout-container bmd-drawer-f-l" >
 <%--            <%@ include file="../includes/navbar.jsp"%>--%>
             <main class="bmd-layout-content">
-                <div class="container" style="background-color: #f2f2f2">
-                    <div class="row" >
-                        <div class="col-sm-12" style="background-color: #660020;" >
-                            <h2 style="text-align: center;margin: 15px; color:white">~Logare~</h2>
-                        </div>
-                        <div class="col-md-3 col-sm-2">
+                <div class="container">
+                    <div class="row" style="align-items: center; margin-top: 10%;">
+<%--                        <div class="col-sm-12" style="background-color: #660020;" >--%>
+<%--                            <h2 style="text-align: center;margin: 15px; color:white">~Logare~</h2>--%>
+<%--                        </div>--%>
+                        <div class="col-md-4 col-sm-2" >
                             <!-- <h1 style="align-items: center; flex-direction: row; color: #660020;">Logare</h2>
                          style="background-color: #f2f2f2;"
                              background-color: #f2f2f2;
 
                      -->
-
+<%--                            style="margin: 7% 5%;border-style: outset; padding: 10px; background-color: #f2f2f2"--%>
                         </div>
-                        <div class="col-md-6 col-sm-8" style="margin: 7% 5%;border-style: outset; padding: 10px">
+                        <div class="col-md-4 col-sm-8"  style="background-color: #f2f2f2; margin-top: 1%;">
                             <div >
                                 <form  method="post" name="logare">
                                     <div class="alert alert-danger" style="color: red;display: <c:out value="${requestScope.display}"/>">
                                         <c:out value="${requestScope.error}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="utilizator" style="font-weight:bold; color: #660020;  margin-top: 20px; text-align: left" >Email</label>
+                                        <label for="utilizator" style="font-weight:bold; color: #660020;  margin-top: 40px; text-align: left" >Email</label>
                                         <input type="text"class="form-control" id="utilizator"  name="numeUtilizator"  style="border-bottom: 2px solid white; background-color: inherit;">
                                     </div>
                                     <div class="form-group">
@@ -44,7 +44,7 @@
 
                                 </form>
                             </div>
-                            <div style="text-align: center; margin-top: 60px; margin-bottom: 30px;">
+                            <div style="text-align: center; margin-top: 60px; margin-bottom: 45px;">
                                 <span style="color: black;  margin: 30px;"> SAU</span>
 
                             </div>
@@ -56,14 +56,14 @@
                                 </a>
                             </div>
 
-                            <div style="text-align: center;margin-top: 10px; margin-bottom: 15px;">
+                            <div style="text-align: center;margin-top: 10px; margin-bottom: 35px;">
         <%--                        <span style="color: white;  margin: 30px;"> Utilizator : </span>--%>
                                 <a href="${pageContext.request.contextPath}/inregistrare">
                                     <button type="button" style="background-color: #660000; padding: 10px; width: 100%; color:white;">Inregistrare Angajat</button>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-3 col-sm-2">
+                        <div class="col-md-4 col-sm-2">
                             <!-- <h1 style="align-items: center; flex-direction: row; color: #660020;">Logare</h2> -->
                         </div>
                     </div>

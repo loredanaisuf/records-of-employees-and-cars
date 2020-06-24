@@ -114,7 +114,7 @@ public class ServiceMasina extends ServiceUtilizator {
     }
 
     public Workbook getXLSFile(List<InformatiiMasina> informatiiMasinaList){
-        String[] columns = {"Nr inmatriculare", "Numaul de km", "Cantitatea de motorina", "Consumul", "Data"};
+        String[] columns = {"Nr inmatriculare", "Numarul de km", "Cantitatea de motorina", "Consumul", "Data"};
 
         // Using XSSF for xlsx format, for xls use HSSF
         Workbook workbook = new XSSFWorkbook();
