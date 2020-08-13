@@ -28,7 +28,7 @@ public class ServiceCalendar extends ServiceUtilizator {
                 listOfDates.add(new Event("M",nameAndRca, rs.getString("asigurare_rca")));
                 String nameAndCasco = "CASCO: " + rs.getString("numar_inmatriculare") + ": M";
                 listOfDates.add(new Event("M",nameAndCasco, rs.getString("asigurare_casco")));
-                String nameAndRovignieta = "Rovignieta: " + rs.getString("numar_inmatriculare") + ": M";
+                String nameAndRovignieta = "Ro: " + rs.getString("numar_inmatriculare") + ": M";
                 listOfDates.add(new Event("M",nameAndRovignieta, rs.getString("rovignieta")));
             }
 

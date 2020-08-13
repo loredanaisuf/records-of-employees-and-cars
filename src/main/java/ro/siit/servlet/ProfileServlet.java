@@ -34,8 +34,10 @@ public class ProfileServlet extends HttpServlet {
 
         if(authenticatedAdmin != null){
             req.setAttribute("user",serviceAdministrator.getAdmin(authenticatedAdmin.getFirma()));
+            req.setAttribute("displayAdmin","block");
         }else{
             req.setAttribute("user",serviceUtilizator.getUser(authenticatedUser.getId()));
+            req.setAttribute("displayAdmin","none");
         }
 
         String action = req.getParameter("action");

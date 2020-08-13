@@ -1,6 +1,8 @@
 package ro.siit.servlet;
 
+import ro.siit.model.Administrator;
 import ro.siit.model.InformatiiPtGrafic;
+import ro.siit.model.Utilizator;
 import ro.siit.service.ServiceInformatii;
 import ro.siit.service.ServiceMasina;
 
@@ -24,6 +26,15 @@ public class GraficServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Utilizator authenticatedUser = (Utilizator) req.getSession().getAttribute("authenticatedUser");
+        Administrator authenticatedAdmin = (Administrator) req.getSession().getAttribute("authenticatedAdmin");
+
+        if(authenticatedAdmin != null){
+            req.setAttribute("displayAdmin","block");
+        }else{
+            req.setAttribute("displayAdmin","none");
+        }
 
         String nrInmatriculare = (String) req.getSession().getAttribute("numarInmatriculare");
         System.out.println("Numarul de inmatriculare din informatii : " + nrInmatriculare);

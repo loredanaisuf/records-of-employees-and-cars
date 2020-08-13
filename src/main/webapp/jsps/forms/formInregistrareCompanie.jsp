@@ -49,7 +49,7 @@
                     </div>
                     <div class="form-group">
                         <label for="email" style="font-weight: bold;">Email</label>
-                        <input type="text" class="form-control" id="email" name="emailAdmin" >
+                        <input type="text" class="form-control" id="email" onkeyup="validateEmail()" name="emailAdmin" >
                     </div>
 
                     <div class="form-group">
@@ -78,6 +78,7 @@
 </div>
 <jsp:include page="../includes/scripts_body.jsp"/>
 <script type="text/javascript" src="resources/js/registerCompany.js"></script>
+<script type="text/javascript" src="resources/js/registerCompany-validateEmail.js"></script>
 <script type="text/javascript" src="resources/js/registerCompany-validateForm.js"></script>
 </body>
 </html>

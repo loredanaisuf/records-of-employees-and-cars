@@ -26,13 +26,6 @@ public class AdminServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-        String target="imparator";
-        String target2 ="test";
-        String encrypted=td.encrypt(target);
-        String decrypted=td.decrypt(encrypted);
-
-        Password.addPasword("admini","admin",target,encrypted);
-        Password.save();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,6 +38,12 @@ public class AdminServlet extends HttpServlet {
             String firma = req.getParameter("firma");
             System.out.println("firma: " + firma);
             boolean exists = serviceAdministrator.companyExists(firma);
+            resp.setContentType("application/json");
+            resp.getWriter().println("{\"exists\": \"" + exists + "\"}");
+        }else if(action.equals("validate-email")) {
+            String email = req.getParameter("emailAdmin");
+            System.out.println("email: " + email);
+            boolean exists = serviceAdministrator.emailExists(email);
             resp.setContentType("application/json");
             resp.getWriter().println("{\"exists\": \"" + exists + "\"}");
         }else{

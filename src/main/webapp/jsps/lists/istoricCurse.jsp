@@ -344,7 +344,7 @@
 
     var l = 0;
     var puncte;
-    for(var k = 0; k < 100; k++){
+    for(var k = 0; k < 1000000; k++){
         puncte = [0, 0];
     }
 
@@ -354,7 +354,7 @@
             puncte[l]= allPoints[k];
             l++;
         }else{
-            console.log("punctele: " + puncte)
+            console.log("punctele pt masina " + k +": " + puncte)
             for (var i = 0; i < puncte.length; i++) {
                 puncte[i] = ol.proj.transform(puncte[i], 'EPSG:4326', 'EPSG:3857');
             }
@@ -381,7 +381,7 @@
             l = 0;
         }
     }
-    console.log("puncte: " + puncte);
+    //console.log("puncte: " + puncte);
 
 
     //code for one line

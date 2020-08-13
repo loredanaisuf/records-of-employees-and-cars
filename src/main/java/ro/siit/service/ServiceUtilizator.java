@@ -200,8 +200,4 @@ public class ServiceUtilizator {
 
         return true;
     }
-    @Override
-    protected void finalize() throws Throwable {
-        this.connection.close();
-    }
 }

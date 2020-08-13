@@ -63,9 +63,6 @@ public class IstoricCurseServlet extends HttpServlet {
 
         List<ColoredCar> coloredCars = new ArrayList<>();
         List<Masina> carsList = serviceMasina.getCars(numeFirma);
-        for(int i=0; i<carsList.size(); i++){
-
-        }
 
         String date1 = req.getParameter("fromData");
         String date2 = req.getParameter("toData");
@@ -90,6 +87,7 @@ public class IstoricCurseServlet extends HttpServlet {
                 allCoordinatesList.add(new Coordonate("","","","0","0"));
 //                carsAndCoordinateMap.put(m.getNrInmatriculare(), coordinatesList);
 //                System.out.println(carsAndCoordinateMap);
+                System.out.println("Lista cu toate coordonatele: " + allCoordinatesList);
             } else {
                 coloredCars.add(new ColoredCar(carsList.get(i).getNrInmatriculare(), i, false));
                 i++;

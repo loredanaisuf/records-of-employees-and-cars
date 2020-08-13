@@ -72,6 +72,7 @@ public class LoginFilter implements Filter {
         Cookie[] cookies = httpServletRequest.getCookies();
 
 
+
         if(authenticatedUser != null || authenticatedAdmin != null)  {
             System.out.println("before filter");
             filterChain.doFilter(servletRequest, servletResponse);
@@ -83,13 +84,16 @@ public class LoginFilter implements Filter {
                 String selector = "";
                 String validator = "";
 
-                for (Cookie aCookie : cookies) {
-                    if (aCookie.getName().equals("selector")) {
-                        selector = aCookie.getValue();
-                    } else if (aCookie.getName().equals("validator")) {
-                        validator = aCookie.getValue();
+                if(cookies.length != 0){
+                    for (Cookie aCookie : cookies) {
+                        if (aCookie.getName().equals("selector")) {
+                            selector = aCookie.getValue();
+                        } else if (aCookie.getName().equals("validator")) {
+                            validator = aCookie.getValue();
+                        }
                     }
                 }
+
                 if (!"".equals(selector) && !"".equals(validator)) {
                     TabelAutentificare tabelAutentificare = serviceAutentificare.getUser(selector,validator);
                     System.out.println("din tabelul de autentificare: " + tabelAutentificare);
@@ -124,13 +128,16 @@ public class LoginFilter implements Filter {
                 String selector = "";
                 String validator = "";
 
-                for (Cookie aCookie : cookies) {
-                    if (aCookie.getName().equals("selector")) {
-                        selector = aCookie.getValue();
-                    } else if (aCookie.getName().equals("validator")) {
-                        validator = aCookie.getValue();
+                if(cookies.length != 0){
+                    for (Cookie aCookie : cookies) {
+                        if (aCookie.getName().equals("selector")) {
+                            selector = aCookie.getValue();
+                        } else if (aCookie.getName().equals("validator")) {
+                            validator = aCookie.getValue();
+                        }
                     }
                 }
+
                 System.out.println("selector: " + selector);
                 if (!"".equals(selector) && !"".equals(validator)) {
                     TabelAutentificare tabelAutentificare = serviceAutentificare.getAdmin(selector, validator);
@@ -156,10 +163,14 @@ public class LoginFilter implements Filter {
                         Administrator administrator = serviceAdministrator.getAdmin(tabelAutentificare.getUserId());
                         httpServletRequest.getSession().setAttribute("authenticatedAdmin", administrator);
                         filterChain.doFilter(servletRequest, servletResponse);
-                    } else {
+                    }
+                    else{
                         ((HttpServletResponse) servletResponse).sendRedirect(servletRequest.getServletContext().getContextPath() + "/login");
                     }
+                }else {
+                        ((HttpServletResponse) servletResponse).sendRedirect(servletRequest.getServletContext().getContextPath() + "/login");
                 }
+
             }
 
 

@@ -67,7 +67,7 @@ public class ServiceAutentificare extends ServiceUtilizator {
 
     public void addAdmin(TabelAutentificare tabelAutentificare){
         try {
-            PreparedStatement ps = connection.prepareStatement("INSERT INTO companii_auth(id, selector, validator, user_id) VALUES (?, ?, ?, ?)");
+            PreparedStatement ps = connection.prepareStatement("INSERT INTO companii_auth(id, selector, validator, admin_id) VALUES (?, ?, ?, ?)");
             ps.setString(1,tabelAutentificare.getId());
             ps.setString(2,tabelAutentificare.getSelector());
             ps.setString(3,tabelAutentificare.getValidator());

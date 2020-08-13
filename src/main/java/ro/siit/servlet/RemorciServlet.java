@@ -42,13 +42,13 @@ public class RemorciServlet extends HttpServlet {
         String action = req.getParameter("action");
         action = (null == action) ? "remorci" : action;
         switch (action) {
-            case ("utilizatori"):
-                resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
-                break;
-
-            case ("masini"):
-                resp.sendRedirect(req.getServletContext().getContextPath() + "/masini");
-                break;
+//            case ("utilizatori"):
+//                resp.sendRedirect(req.getServletContext().getContextPath() + "/utilizatori");
+//                break;
+//
+//            case ("masini"):
+//                resp.sendRedirect(req.getServletContext().getContextPath() + "/masini");
+//                break;
 
             case ("addRemorca"):
                 req.getRequestDispatcher("/jsps/forms/formRemorca.jsp").forward(req, resp);
