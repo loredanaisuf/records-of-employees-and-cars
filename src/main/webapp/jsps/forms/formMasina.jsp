@@ -52,7 +52,7 @@
                         <input type="date"class="form-control" id="rca"  name="rcaMasina" aria-describedby="emailHelp" value="${requestScope.CarToEdit.rca}">
                     </div>
                     <div class="form-group">
-                        <label for="casco"style="font-weight: bold;" >Asigurare CASCO valabila pana</label>
+                        <label for="casco"style="font-weight: bold;" >Licenta valabila pana</label>
                         <input type="date"class="form-control" id="casco"  name="cascoMasina" aria-describedby="emailHelp" value="${requestScope.CarToEdit.casco}">
                     </div>
                     <div class="form-group" style="font-weight: bold;">

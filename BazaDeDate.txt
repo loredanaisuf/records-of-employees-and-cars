@@ -101,6 +101,7 @@ CREATE TABLE remorci(
 	numar_inmatriculare_masina VARCHAR(10),
   	anul_fabricatiei INT,
   	itp VARCHAR(15),
+	asigurare VARCHAR(15),
   	PRIMARY KEY(numar_inmatriculare_remorca),
  	FOREIGN KEY (numar_inmatriculare_masina) REFERENCES masini(numar_inmatriculare),
 	FOREIGN KEY(firma) REFERENCES companii(nume_firma)

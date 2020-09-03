@@ -6,13 +6,15 @@ public class Remorca {
     private String nrInmatriculareMasina;
     private Integer anulFabricatiei;
     private String itp;
+    private String asigurare;
 
-    public Remorca(String nrInmatriculareRemorca, String firma, String nrInmatriculareMasina, Integer anulFabricatiei, String itp) {
+    public Remorca(String nrInmatriculareRemorca, String firma, String nrInmatriculareMasina, Integer anulFabricatiei, String itp, String asigurare) {
         this.nrInmatriculareRemorca = nrInmatriculareRemorca;
         this.firma = firma;
         this.nrInmatriculareMasina = nrInmatriculareMasina;
         this.anulFabricatiei = anulFabricatiei;
         this.itp = itp;
+        this.asigurare = asigurare;
     }
 
     public String getNrInmatriculareRemorca() {
@@ -32,4 +34,6 @@ public class Remorca {
     public String getItp() {
         return itp;
     }
+
+    public String getAsigurare(){ return asigurare; }
 }

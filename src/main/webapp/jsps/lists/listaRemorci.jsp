@@ -27,7 +27,7 @@
                                 <th scope="col">NrInmatriculareMasina</th>
                                 <th scope="col">AnulFabricatiei</th>
                                 <th scope="col">ITP</th>
-
+                                <th scope="col">Asigurare</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,6 +46,7 @@
                                     <th>${remorca.nrInmatriculareMasina}</th>
                                     <td>${remorca.anulFabricatiei}</td>
                                     <td>${remorca.itp}</td>
+                                    <td>${remorca.asigurare}</td>
                                 </tr>
                             </c:forEach>
 

@@ -30,7 +30,7 @@
                                 <th scope="col">AnFabricatie</th>
                                 <th scope="col">ITP</th>
                                 <th scope="col">AsigurareRCA</th>
-                                <th scope="col">AsigurareCasco</th>
+                                <th scope="col">Licenta</th>
                                 <th scope="col">Rovigieta</th>
                             </tr>
                             </thead>

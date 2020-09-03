@@ -69,12 +69,17 @@ public class RemorciServlet extends HttpServlet {
                 serviceRemorca.deleteTrail(nrInmatriculare);
                 resp.sendRedirect(req.getServletContext().getContextPath() + "/remorci");
                 break;
+
+            default:
+                System.out.println("nume firma din remorci: " + numeFirma);
+                List<Remorca> remorci = this.serviceRemorca.getTrails(numeFirma);
+                System.out.println("Lista remorcilor este: " + remorci);
+                req.setAttribute("TrailsTobeDisplayed", remorci);
+                req.getRequestDispatcher("/jsps/lists/listaRemorci.jsp").forward(req, resp);
+
         }
 
-        System.out.println("nume firma din remorci: " + numeFirma);
-        List<Remorca> remorci = this.serviceRemorca.getTrails(numeFirma);
-        req.setAttribute("TrailsTobeDisplayed", remorci);
-        req.getRequestDispatcher("/jsps/lists/listaRemorci.jsp").forward(req, resp);
+
 //                break;
 //            case ("remorci"):
 //                List<Remorca> remorci = this.serviceRemorca.getTrails();
@@ -106,7 +111,9 @@ public class RemorciServlet extends HttpServlet {
                 String idMasina = req.getParameter("nrInmatriculareMasina");
                 Integer anulFabricatieiR = Integer.valueOf(req.getParameter("anFabricatieRemorca"));
                 String itpR = req.getParameter("itpRemorca");
-                serviceRemorca.addTrail(new Remorca(idRemorca,numeFirma, idMasina, anulFabricatieiR, itpR));
+                String asigurare = req.getParameter("asigurare");
+                System.out.println("Id :" + idRemorca + " An: " + anulFabricatieiR + " RCA:" + asigurare);
+                serviceRemorca.addTrail(new Remorca(idRemorca,numeFirma, idMasina, anulFabricatieiR, itpR, asigurare));
 
 //                List<Remorca> remorci = this.serviceRemorca.getTrails();
 //                req.setAttribute("TrailsTobeDisplayed", remorci);
@@ -118,7 +125,9 @@ public class RemorciServlet extends HttpServlet {
                 idMasina = req.getParameter("nrInmatriculareMasina");
                 anulFabricatieiR = Integer.valueOf(req.getParameter("anFabricatieRemorca"));
                 itpR = req.getParameter("itpRemorca");
-                serviceRemorca.updateTrail(new Remorca(idRemorca, numeFirma, idMasina, anulFabricatieiR, itpR));
+                asigurare = req.getParameter("asigurare");
+                System.out.println("Id :" + idRemorca + " An: " + anulFabricatieiR + " RCA:" + asigurare);
+                serviceRemorca.updateTrail(new Remorca(idRemorca, numeFirma, idMasina, anulFabricatieiR, itpR, asigurare));
 
 //                remorci = this.serviceRemorca.getTrails();
 //                req.setAttribute("TrailsTobeDisplayed", remorci);

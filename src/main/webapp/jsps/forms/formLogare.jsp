@@ -12,7 +12,7 @@
 <%--            <%@ include file="../includes/navbar.jsp"%>--%>
             <main class="bmd-layout-content">
                 <div class="container">
-                    <div class="row" style="align-items: center; margin-top: 10%;">
+                    <div class="row" style="align-items: center; margin-top: 3%;">
 <%--                        <div class="col-sm-12" style="background-color: #660020;" >--%>
 <%--                            <h2 style="text-align: center;margin: 15px; color:white">~Logare~</h2>--%>
 <%--                        </div>--%>
@@ -24,14 +24,14 @@
                      -->
 <%--                            style="margin: 7% 5%;border-style: outset; padding: 10px; background-color: #f2f2f2"--%>
                         </div>
-                        <div class="col-md-4 col-sm-8"  style="background-color: #f2f2f2; margin-top: 1%;">
+                        <div class="col-md-4 col-sm-8"  style="background-color: #f2f2f2; margin-top: 3%;">
                             <div >
                                 <form  method="post" name="logare">
                                     <div class="alert alert-danger" style="color: red;display: <c:out value="${requestScope.display}"/>">
                                         <c:out value="${requestScope.error}"/>
                                     </div>
                                     <div class="form-group">
-                                        <label for="utilizator" style="font-weight:bold; color: #660020;  margin-top: 40px; text-align: left" >Email</label>
+                                        <label for="utilizator" style="font-weight:bold; color: #660020;  margin-top: 20%; text-align: left" >Email</label>
                                         <input type="text"class="form-control" id="utilizator"  name="numeUtilizator"  style="border-bottom: 2px solid white; background-color: inherit;">
                                     </div>
                                     <div class="form-group">
@@ -56,7 +56,7 @@
                                 </a>
                             </div>
 
-                            <div style="text-align: center;margin-top: 10px; margin-bottom: 35px;">
+                            <div style="text-align: center;margin-top: 10px; margin-bottom: 25%;">
         <%--                        <span style="color: white;  margin: 30px;"> Utilizator : </span>--%>
                                 <a href="${pageContext.request.contextPath}/inregistrare">
                                     <button type="button" style="background-color: #660000; padding: 10px; width: 100%; color:white;">Inregistrare Angajat</button>

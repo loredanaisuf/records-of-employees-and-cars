@@ -26,15 +26,17 @@ public class ServiceCalendar extends ServiceUtilizator {
                 listOfDates.add(new Event("M",nameAndItp, rs.getString("itp")));
                 String nameAndRca = "RCA: " + rs.getString("numar_inmatriculare") + ": M";
                 listOfDates.add(new Event("M",nameAndRca, rs.getString("asigurare_rca")));
-                String nameAndCasco = "CASCO: " + rs.getString("numar_inmatriculare") + ": M";
+                String nameAndCasco = "L: " + rs.getString("numar_inmatriculare") + ": M";
                 listOfDates.add(new Event("M",nameAndCasco, rs.getString("asigurare_casco")));
                 String nameAndRovignieta = "Ro: " + rs.getString("numar_inmatriculare") + ": M";
                 listOfDates.add(new Event("M",nameAndRovignieta, rs.getString("rovignieta")));
             }
 
             while(rs1.next()){
-                String name = "ITP: " + rs1.getString("numar_inmatriculare_remorca") + ": R";
-                listOfDates.add(new Event("R",name, rs1.getString("itp")));
+                String nameAndITP = "ITP: " + rs1.getString("numar_inmatriculare_remorca") + ": R";
+                listOfDates.add(new Event("R",nameAndITP, rs1.getString("itp")));
+                String nameAndAsigurare ="RCA: " + rs1.getString("numar_inmatriculare_remorca") + ": R";
+                listOfDates.add(new Event("R", nameAndAsigurare, rs1.getString("asigurare")));
             }
         } catch (SQLException e) {
             e.printStackTrace();

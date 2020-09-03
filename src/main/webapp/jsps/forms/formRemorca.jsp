@@ -48,6 +48,10 @@
                             <label for="itp" style="font-weight: bold;">ITP valabil pana la</label>
                             <input type="date"class="form-control" id="itp"  name="itpRemorca" aria-describedby="emailHelp" value="${requestScope.TrailToEdit.itp}">
                         </div>
+                        <div class="form-group">
+                            <label for="itp" style="font-weight: bold;">Asigurarea valabil pana la</label>
+                            <input type="date"class="form-control" id="asigurare"  name="asigurare" aria-describedby="emailHelp" value="${requestScope.TrailToEdit.asigurare}">
+                        </div>
 
 
                         <!-- <button type="button" class="btn btn-primary" style="margin-bottom: 60px;">${requestScope.TrailToEdit eq null ? 'Adauga' : 'Edit'}</button> -->
